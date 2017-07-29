@@ -1,0 +1,19 @@
+{
+  "name": "hunch",
+  "version": "1.0.0",
+  "description": "who said it??",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkc1/hunch.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mkc1/hunch/issues"
+  },
+  "homepage": "https://github.com/mkc1/hunch#readme"
+}
