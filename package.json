@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/mkc1/hunch#readme",
   "dependencies": {
-    "mongodb": "^2.2.30"
+    "mongodb": "^2.2.30",
+    "express": "^4.15.3"
   }
 }
