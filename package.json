@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/mkc1/hunch/issues"
   },
-  "homepage": "https://github.com/mkc1/hunch#readme"
+  "homepage": "https://github.com/mkc1/hunch#readme",
+  "dependencies": {
+    "mongodb": "^2.2.30"
+  }
 }
