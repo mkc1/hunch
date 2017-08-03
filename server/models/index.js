@@ -14,11 +14,7 @@ const UserSchema = new Schema({
     answer: { 
         type: Schema.Types.ObjectId,
         ref: 'Answer'
-    },
-    selection: { 
-        type: Schema.Types.ObjectId,
-        ref: 'Selection'
-    },
+    }
 })
 
 const GameSchema = new Schema({
@@ -45,17 +41,20 @@ const AnswerSchema = new Schema({
     },
     answer: {
         type: String 
-    }
+    },
+    selections: [SelectionSchema]
 })
 
 const SelectionSchema = new Schema({
-    question: {
-        type: Schema.Types.ObjectId,
-        ref: 'Question'
-    },
-    suspected_user: {
+    guessing_user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+    },
+    suspected_user: {
+        type: 
+    }
+    correct: {
+        type: Boolean
     }
 })
 
