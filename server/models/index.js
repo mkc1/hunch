@@ -17,32 +17,21 @@ const UserSchema = new Schema({
     }
 })
 
-const GameSchema = new Schema({
-    currentQuestion: { 
-        type: Schema.Types.ObjectId,
-        ref: 'Question' },
-    round: {
-        type: Number
-    },
-    users: [UserSchema],
-    questions: [QuestionSchema]
-})
-
-const QuestionSchema = new Schema({
-    question: {
+const TopicSchema = new Schema({
+    topic: {
         type: String
     }
 })
 
-const AnswerSchema = new Schema({
-    question: {
+const GameSchema = new Schema({
+    currentTopic: { 
         type: Schema.Types.ObjectId,
-        ref: 'Question'
+        ref: 'Topic' },
+    round: {
+        type: Number
     },
-    answer: {
-        type: String 
-    },
-    selections: [SelectionSchema]
+    users: [UserSchema],
+    topics: [TopicSchema]
 })
 
 const SelectionSchema = new Schema({
@@ -51,17 +40,37 @@ const SelectionSchema = new Schema({
         ref: 'User'
     },
     suspected_user: {
-        type: 
-    }
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
     correct: {
         type: Boolean
     }
 })
 
+const AnswerSchema = new Schema({
+    topic: {
+        type: Schema.Types.ObjectId,
+        ref: 'Topic'
+    },
+    answer: {
+        type: String 
+    },
+    selections: [SelectionSchema]
+})
+
+const Game = mongoose.model('Game', GameSchema);
+const User = mongoose.model('User', UserSchema);
+const Topic = mongoose.model('Topic', TopicSchema);
+const Answer = mongoose.model('Answer', AnswerSchema);
+const Selection = mongoose.model('Selection', SelectionSchema);
+
+
+
 module.exports = {
-    Game: GameSchema,
-    User: UserSchema,
-    Question: QuestionSchema,
-    Answer: AnswerSchema,
-    Selection: SelectionSchema
+    Game: Game,
+    User: User,
+    Topic: Topic,
+    Answer: Answer,
+    Selection: Selection
 }
