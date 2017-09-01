@@ -19,15 +19,6 @@ const TopicSchema = new Schema({
     }
 })
 
-const GameSchema = new Schema({
-    round: {
-        type: Number
-    },
-    users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-    topics: [{ type: Schema.Types.ObjectId, ref: 'Topic' }],
-    answers: [AnswerSchema]
-})
-
 const SelectionSchema = new Schema({
     guessing_user: {
         type: Schema.Types.ObjectId,
@@ -51,6 +42,15 @@ const AnswerSchema = new Schema({
         type: String 
     },
     selections: [SelectionSchema]
+})
+
+const GameSchema = new Schema({
+    round: {
+        type: Number
+    },
+    users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    topics: [{ type: Schema.Types.ObjectId, ref: 'Topic' }],
+    answers: [AnswerSchema]
 })
 
 const Game = mongoose.model('Game', GameSchema);
