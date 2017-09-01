@@ -10,10 +10,6 @@ const UserSchema = new Schema({
     },
     points: {
         type: Number
-    },
-    answer: { 
-        type: Schema.Types.ObjectId,
-        ref: 'Answer'
     }
 })
 
@@ -24,14 +20,12 @@ const TopicSchema = new Schema({
 })
 
 const GameSchema = new Schema({
-    currentTopic: { 
-        type: Schema.Types.ObjectId,
-        ref: 'Topic' },
     round: {
         type: Number
     },
-    users: [UserSchema],
-    topics: [TopicSchema]
+    users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    topics: [{ type: Schema.Types.ObjectId, ref: 'Topic' }],
+    answers: [AnswerSchema]
 })
 
 const SelectionSchema = new Schema({
@@ -49,9 +43,9 @@ const SelectionSchema = new Schema({
 })
 
 const AnswerSchema = new Schema({
-    topic: {
+    user: {
         type: Schema.Types.ObjectId,
-        ref: 'Topic'
+        ref: 'User'
     },
     answer: {
         type: String 
@@ -62,15 +56,9 @@ const AnswerSchema = new Schema({
 const Game = mongoose.model('Game', GameSchema);
 const User = mongoose.model('User', UserSchema);
 const Topic = mongoose.model('Topic', TopicSchema);
-const Answer = mongoose.model('Answer', AnswerSchema);
-const Selection = mongoose.model('Selection', SelectionSchema);
-
-
 
 module.exports = {
     Game: Game,
     User: User,
-    Topic: Topic,
-    Answer: Answer,
-    Selection: Selection
+    Topic: Topic
 }
