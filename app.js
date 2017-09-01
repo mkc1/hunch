@@ -1,18 +1,23 @@
 const express = require('express');
+const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 const bodyParser = require('body-parser');
 const path = require('path');
-
-const app = express();
-
-const PORT = process.env.PORT || 3000;
+const router = require('./server/routes/');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, 'public')))
-// API routes
-require('./server/routes')(app);
+app.use(express.static('public'));
+app.use('/', router);
 
-app.listen(PORT, ()=>{
+const PORT = process.env.PORT || 3000;
+
+server.listen(PORT, ()=>{
   console.log('Example app listening on port 3000!');
-})
+});
+
+io.on('connection', function (socket) {
+  console.log('socket io connection success')
+});
