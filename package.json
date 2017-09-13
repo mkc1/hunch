@@ -4,7 +4,7 @@
   "description": "who said it??",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,11 +18,20 @@
   },
   "homepage": "https://github.com/mkc1/hunch#readme",
   "dependencies": {
-    "express": "^4.15.3",
-    "mongodb": "^2.2.30",
-    "mongoose": "^4.11.4",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "mongodb": "^2.2.30"
+    "jsx": "^0.9.89",
+    "mongodb": "^2.2.30",
+    "mongoose": "^4.11.4",
+    "path": "^0.12.7",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "webpack": "^3.5.6"
   }
 }
