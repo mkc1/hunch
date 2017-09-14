@@ -58,7 +58,7 @@ typings/
 .env
 
 # dist directory
-/dist
+public/dist
 
 # notes
 notes.txt

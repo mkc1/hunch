@@ -1,4 +1,5 @@
 import React from 'react';
+import io from 'socket.io-client';
 
 class Application extends React.Component {
     constructor(props) {
@@ -9,7 +10,7 @@ class Application extends React.Component {
     }
 
     handleClick() {
-        axios.get('')
+        var socket = io();
     }
 
     render() {

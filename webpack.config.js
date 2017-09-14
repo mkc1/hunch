@@ -1,16 +1,10 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: './public/index.html',
-  filename: 'index.html',
-  inject: 'body'
-})
 
 module.exports = {
   entry: './public/main.js',
   output: {
-    path: path.resolve('dist'),
-    filename: 'main.bundle.js'
+    path: path.resolve(__dirname, "public/dist"),
+    filename: 'bundle.js'
   },
   module: {
     loaders: [
@@ -19,8 +13,7 @@ module.exports = {
       { test: /\.css$/, use: [ 'style-loader', 'css-loader' ] }
     ]
   },
-  plugins: [HtmlWebpackPluginConfig],
   devServer: {
     port: 3000
-  },
+  }
 }

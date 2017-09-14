@@ -4,7 +4,11 @@
   "description": "who said it??",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server",
+    "build": "webpack",
+    "build-watch": "webpack --watch",
+    "start-watch": "nodemon app.js",
+    "dev": "npm run build-watch & npm run start-watch",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,10 +29,11 @@
     "mongoose": "^4.11.4",
     "path": "^0.12.7",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "socket.io": "^2.0.3",
+    "webpack": "^3.5.6"
   },
   "devDependencies": {
-    "axios": "^0.16.2",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
