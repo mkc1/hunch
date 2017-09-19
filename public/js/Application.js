@@ -1,5 +1,5 @@
 import React from 'react';
-import Username from './Components/Username';
+import Form from './Components/Form';
 import ChooseGame from './Components/ChooseGame';
 import { Redirect, Link } from 'react-router-dom';
 
@@ -14,10 +14,19 @@ class Application extends React.Component {
     render() {
         return(
             <div>
-                <Username />
-                {(!this.state.username) &&
-                    <ChooseGame username={this.state.username} />
-                }
+                <div>
+                    <h2>Welcome! {this.state.username}</h2>
+                </div>
+                <div>
+                    {(!this.state.username) && 
+                        <Form liftData={
+                            (name)=>this.setState({ username: name })
+                        } />
+                    }
+                    {(this.state.username) &&
+                        <ChooseGame username={this.state.username} />
+                    }
+                </div>
             </div>
         )
     };

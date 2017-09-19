@@ -9,7 +9,7 @@ import GameRoom from './Components/GameRoom';
 ReactDOM.render(
   <Router>
     <Switch>
-      <Route exact path='/' component={Application}/>
+      <Route exact path='/' component={ Application }/>
       <Route path='/start-game' component={ GameRoom }/>
     </Switch>
   </Router>,
