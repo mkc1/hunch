@@ -27,7 +27,7 @@ class ChooseGame extends React.Component {
     }
 
     handleNewGame() {
-        let newCode = this.generateGameCode();
+        const newCode = this.generateGameCode();
         this.setState({
             gameCode: newCode,
             firstPlayer: true,
@@ -36,12 +36,9 @@ class ChooseGame extends React.Component {
     }
 
     handleJoinGame(code) {
-        let gameCode = code;
+        const gameCode = code;
         console.log('game code', gameCode);
-        this.setState({
-            gameCode: gameCode,
-            fireRedirect: true 
-        });
+        this.setState({ gameCode: gameCode, fireRedirect: true });
     }
 
     render(){
