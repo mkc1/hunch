@@ -1,0 +1,11 @@
+body {
+    font-family: 'Helvetica';
+    color: white;
+}
+
+div {
+    margin: 0 auto;
+    padding: 10px 0;
+    background: rgb(1, 147, 154);
+    width: 60%;
+}

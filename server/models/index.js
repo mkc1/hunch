@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-mongoose.connect('mongodb://localhost/hunch');
+mongoose.connect('mongodb://localhost/hunch', {
+  useMongoClient: true,
+});
 
 
 const UserSchema = new Schema({
