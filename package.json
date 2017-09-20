@@ -9,6 +9,7 @@
     "start-watch": "nodemon app.js",
     "dev": "npm run build-watch & npm run start-watch",
     "start": "node app.js",
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -43,6 +44,7 @@
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.7",
     "style-loader": "^0.18.2",
+    "nodemon": "^1.11.0",
     "webpack": "^3.5.6"
   }
 }
