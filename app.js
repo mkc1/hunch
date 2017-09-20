@@ -5,6 +5,9 @@ const io = require('./server/io/socket')(server);
 const bodyParser = require('body-parser');
 const path = require('path');
 const router = require('./server/routes/');
+const config = require('./config/index.js');
+
+console.log(config);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -16,8 +19,10 @@ app.get('*', function (request, response){
 
 app.use('/', router);
 
-const PORT = process.env.PORT || 3000;
+const PORT = config.port;
 
 server.listen(PORT, ()=>{
-  console.log('Example app listening on port 3000!');
+  console.log('Example app listening on port ' + PORT + ' !');
 });
+
+module.exports = app;

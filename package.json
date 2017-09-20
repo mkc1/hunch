@@ -3,13 +3,17 @@
   "version": "1.0.0",
   "description": "who said it??",
   "main": "index.js",
+  "jest": {
+    "verbose": true,
+    "modulePathIgnorePatterns" : ["<rootDir>/config/"]
+  },
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "build-watch": "webpack --watch",
     "start-watch": "nodemon app.js",
-    "dev": "npm run build-watch & npm run start-watch",
+    "dev": "NODE_ENV=dev npm run build-watch & npm run start-watch",
     "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test jest"
   },
   "repository": {
     "type": "git",
@@ -42,7 +46,9 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.7",
+    "jest": "^21.1.0",
     "style-loader": "^0.18.2",
+    "supertest": "^3.0.0",
     "webpack": "^3.5.6"
   }
 }
