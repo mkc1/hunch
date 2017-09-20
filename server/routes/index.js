@@ -1,12 +1,14 @@
 const router = require('express').Router();
 const Game = require('./../models/index').Game;
 const User = require('./../models/index').User;
+const Topic = require('./../models/index').Topic;
 
 router.post('/game', (req, res, next) => {
-    User.create({name: req.body.name})
-    .then((user)=>{
+    User.create(req.body)
+    .then((newUsers)=>{
+        console.log('users', newUsers);
         var newGame = new Game({
-            users: [user._id]
+            users: newUsers
         });
 
         return newGame.save();
