@@ -5,7 +5,9 @@
   "main": "index.js",
   "jest": {
     "verbose": true,
-    "modulePathIgnorePatterns" : ["<rootDir>/config/"]
+    "modulePathIgnorePatterns": [
+      "<rootDir>/config/"
+    ]
   },
   "scripts": {
     "build": "webpack --config webpack.config.js",
@@ -13,12 +15,7 @@
     "start-watch": "nodemon app.js",
     "dev": "NODE_ENV=dev npm run build-watch & npm run start-watch",
     "start": "node app.js",
-<<<<<<< HEAD
-    "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-=======
     "test": "NODE_ENV=test jest"
->>>>>>> testing
   },
   "repository": {
     "type": "git",
@@ -31,6 +28,7 @@
   },
   "homepage": "https://github.com/mkc1/hunch#readme",
   "dependencies": {
+    "axios": "^0.16.2",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "history": "^4.7.2",

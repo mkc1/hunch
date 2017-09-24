@@ -4,31 +4,20 @@ const User = require('./../models/index').User;
 const Topic = require('./../models/index').Topic;
 
 router.post('/game', (req, res, next) => {
-    User.create(req.body)
-    .then((newUsers)=>{
-        console.log('users', newUsers);
-        var newGame = new Game({
-            users: newUsers
-        });
 
+    return Promise.all([User.create(req.body.users), Topic.find({})])
+    .then(result =>{
+        console.log('topics', result)
+        var newGame = new Game({ users: result[0], topics: result[1] });
         return newGame.save();
     })
     .then((game)=>{
         res.status(201).json(game);
     })
-    .then(null, next);
-});
-
-router.post('/user', (req, res, next) => {
-    Game.findOne({_id: req.body.gameId})
-    .then((game) => {
-        var newUser = new User({
-            name: req.body.name
-        })
-        game.users.push(newUser._id)
+    .catch(error=>{
+        console.log('error', error)
     })
-    User.create({name: req.username})
 
-})
+});
 
 module.exports = router;
