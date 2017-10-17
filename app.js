@@ -4,7 +4,7 @@ const server = require('http').Server(app);
 const io = require('./server/io/socket')(server);
 const bodyParser = require('body-parser');
 const path = require('path');
-const router = require('./server/routes/');
+const router = require('./server/routes/')(io);
 const config = require('./config/index.js');
 
 app.use(bodyParser.urlencoded({ extended: true }));

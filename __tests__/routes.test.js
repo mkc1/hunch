@@ -29,13 +29,13 @@ test('Testing root', (done) => {
     })
 });
 
-test('POST api', (done) => {
+test('POST game', (done) => {
     request.post('/game')
     .send([{name: 'testname1!'}, {name: 'testname2!'}])
     .then((response) => {
         expect(response.statusCode).toBe(201);
-        expect(response.body.users.length).toBe(2);
-        expect(response.body.users[0].name).toBe('testname1!')
+        // expect(response.body.users.length).toBe(2);
+        // expect(response.body.users[0].name).toBe('testname1!')
         done();
     });
 });
@@ -75,12 +75,11 @@ describe('testing answers', () => {
     });
 
     test('POST answers', (done) => {
-        console.log('user1', user1);
-        request.post('/answer')
+        request.post('/game/answer')
         .send({
             game: game1._id,
             answer: 'a test answer',
-            user: user1._id
+            user: 'testname1!'
         })
         .then(response =>{
             expect(response.statusCode).toBe(201);
@@ -96,7 +95,7 @@ describe('testing answers', () => {
 
         console.log('answer id?', game1.answers[0]._id)
 
-        request.put('/answer/' + game1.answers[0]._id)
+        request.put('/game/answer/' + game1.answers[0]._id)
         .send({
             guessing_user: user1._id,
             suspected_user: user2._id
@@ -105,19 +104,12 @@ describe('testing answers', () => {
             let newSelections = response.body.answers[0].selections
             expect(response.statusCode).toBe(201);
             expect(newSelections.length).toBe(1);
-
-            return Game.findById(game1._id).populate('answers.selections')
-        })
-        .then(game =>{
-            console.log(game);
-            let answer = game.answers.id(game1.answers[0]._id);
-            console.log(answer.populate('selections'))
-            // expect(selections.length).toBe(1);
-            // console.log(selections)
-        })
-        .then(answer =>{
-            console.log(answer)
             done();
         })
     })
+
+    // test('get all answers', (done) => {
+    //     request.get('/game/answers')
+    //     .send
+    // })
 });
