@@ -14,7 +14,7 @@ module.exports = (server) => {
             socket.name = data.name;
             console.log('name1', socket.name);
             console.log('just joined', socket.id, data.name);
-            io.to(gameCode).emit('joined', socket.id, data.name);
+            io.to(gameCode).emit('joined', socket.id, data.name, gameCode);
         });
 
         socket.on('get-current-players', function(gameCode){

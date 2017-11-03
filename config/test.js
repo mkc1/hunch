@@ -4,6 +4,6 @@ console.log('running the test config');
 
 module.exports = {
     env: 'test',
-    db: 'mongodb://localhost/hunchTEST',
+    db: 'mongodb://127.0.0.1/hunchTEST',
     port: process.env.PORT || 3100,
 };

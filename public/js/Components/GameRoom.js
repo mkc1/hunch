@@ -1,39 +1,39 @@
 import React from 'react';
-import io from 'socket.io-client';
-import axios from 'axios';
+import socket from './../socket.js'
 import { Redirect, Link } from 'react-router-dom';
-let socket;
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { addGame, createGame } from './../actions';
+
 
 class GameRoom extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentPlayers: [{test10: true}, {test11: true}, {test12: false}, {test13: true}],
+            currentPlayers: [],
             game: null
         }
         this._connected = this._connected.bind(this);
         this._notifyNewPlayer = this._notifyNewPlayer.bind(this);
         this._updateCurrentPlayers = this._updateCurrentPlayers.bind(this);
-        this.beginGame = this.beginGame.bind(this);
+        this._beginGame = this._beginGame.bind(this);
+        this.createGame = this.createGame.bind(this);
     }
 
-    componentWillMount() {
-        console.log('mount', this.context.router);
-        socket = io();
-        socket.on('connect', this._connected);
-        socket.on('joined', this._notifyNewPlayer);
+    componentDidMount() {
+        // socket = io();
+
+        console.log('thisshould be the socket', socket)
+        // socket.on('joined', this._notifyNewPlayer);
         socket.on('players', this._updateCurrentPlayers);
-    }
-
-    componentWillUnmount() {
-        socket.emit('disconnect')
+        socket.on('created', this._beginGame);
     }
 
     _connected() {
         const gameCode = this.props.location.state.code;
         const username = this.props.location.state.user;
         console.log('I have made a persistent two-way connection to the server!');
-        // socket.emit('join-room', { code: gameCode, name: username });
+        socket.emit('join-room', { code: gameCode, name: username });
     }
 
     _notifyNewPlayer(data) {
@@ -44,28 +44,45 @@ class GameRoom extends React.Component {
 
     _updateCurrentPlayers(data) {
         console.log('players', data);
-        this.setState({ currentPlayers: this.state.currentPlayers.concat(data) },()=> {
-            console.log('updated players')
+        this.setState({ currentPlayers: [].concat(data) },()=> {
+            console.log('updated players', this.state.currentPlayers);
         })
     }
 
-    beginGame() {
-        const users1 = this.state.currentPlayers.map((user)=>{
-            if (Object.keys(user)[0]) {
-                return { name: Object.keys(user)[0] };
-            }
+    createGame() {
+        // const users1 = this.state.currentPlayers.map((user)=>{
+        //     if (Object.keys(user)[0]) {
+        //         return {name: Object.keys(user)[0]};
+        //     }
+        // })
+
+        const users = this.state.currentPlayers.map(user=>{
+            return { name: user }
         })
 
-        console.log(users1);
+        console.log(users);
 
-        axios.post('/game', {users: users1})
-          .then((response)=> {
-            console.log(response.data);
-            this.setState({game: response.data })
-          })
-          .catch(function (error) {
-            console.log(error);
-        });
+        this.props.createGame(users, this.props.location.state.code);
+
+        // axios.post('/game', {
+        //     users: users,
+        //     gameCode: this.props.location.state.code
+        // })
+        // .then((response)=> {
+        //     console.log(response.data);
+        // })
+        // .catch(function (error) {
+        //     console.log(error);
+        // });
+    }
+
+    _beginGame(data) {
+        console.log('begin game', data, this.props.location.state.code);
+        this.props.addGame(data);
+        // this.setState({game: data},()=> {
+        //     console.log('new game!!!', this.state.game);
+        // })
+        // return;
     }
 
 
@@ -74,34 +91,45 @@ class GameRoom extends React.Component {
         const username = this.props.location.state.user;
         const isFirstPlayer = this.props.location.state.first;
 
+        console.log('this props rendering', this.props)
+
         return(
             <div>
                 <div>
                     <p>Hi {username}. Your game code is {gameCode}</p>
                 </div>
                 <div>
-                    Players currently in game:
+                    Players currently in game: {this.state.currentPlayers}
                 </div>
-                {(true) && (
+                {(isFirstPlayer) && (
                     <div>
                         <p>You are the first one here!</p>
                         <p>When all other players have joined the game, click 'start'!</p>
-                        <button onClick={this.beginGame}>start</button>
+                        <button onClick={this.createGame}>start</button>
                     </div>
                 )}
                 <div>
-                {(this.state.game) && (
+                {(this.props.game) && (
                     <Redirect to={{
-                        pathname: '/game',
-                        state: { 
-                            game: this.state.game
-                        }
+                        pathname: '/game'
                     }} push/>
                 )}
                 </div>
             </div>
         )
     }
-}
+};
 
-export default GameRoom;
+function mapStateToProps(state) {
+    console.log('state also', state);
+    return {
+        user: state.user,
+        game: state.game
+    }
+};
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ addGame, createGame }, dispatch)
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameRoom);

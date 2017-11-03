@@ -16,7 +16,8 @@ module.exports = function(io) {
         })
         .then(game =>{
             io.to(req.body.gameCode).emit('created', game);
-            res.sendStatus(201);
+            // res.sendStatus(201);
+            res.send(game);
         })
         .catch(error =>{
             console.log('error', error);
@@ -28,7 +29,7 @@ module.exports = function(io) {
         return User.findOne({ name: req.body.user  })
         .then(user=>{
             return Game.findOneAndUpdate({_id: req.body.game},
-                {$addToSet: {answers: { answer: req.body.answer, user: req.body.user._id}}},
+                {$addToSet: {answers: { answer: req.body.answer, user: user._id}}},
                 {'new': true})
         })
         .then(game =>{
