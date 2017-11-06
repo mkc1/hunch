@@ -16,8 +16,7 @@ module.exports = function(io) {
         })
         .then(game =>{
             io.to(req.body.gameCode).emit('created', game);
-            // res.sendStatus(201);
-            res.send(game);
+            res.sendStatus(201);
         })
         .catch(error =>{
             console.log('error', error);

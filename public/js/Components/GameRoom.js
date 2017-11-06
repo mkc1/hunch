@@ -21,19 +21,24 @@ class GameRoom extends React.Component {
     }
 
     componentDidMount() {
+        const gameCode = this.props.location.state.code;
+        const username = this.props.location.state.user;
         // socket = io();
 
-        console.log('thisshould be the socket', socket)
-        // socket.on('joined', this._notifyNewPlayer);
+        // console.log('thisshould be the socket', socket);
+        // socket.on('connect', this._connected);
+        socket.on('joined', this._notifyNewPlayer);
         socket.on('players', this._updateCurrentPlayers);
         socket.on('created', this._beginGame);
+
+        socket.emit('join-room', { code: gameCode, name: username });
     }
 
     _connected() {
-        const gameCode = this.props.location.state.code;
-        const username = this.props.location.state.user;
+        // const gameCode = this.props.location.state.code;
+        // const username = this.props.location.state.user;
         console.log('I have made a persistent two-way connection to the server!');
-        socket.emit('join-room', { code: gameCode, name: username });
+        // socket.emit('join-room', { code: gameCode, name: username });
     }
 
     _notifyNewPlayer(data) {

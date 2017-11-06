@@ -13,6 +13,8 @@ import Game from './Components/Game';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
+socket(store);
+
 
 ReactDOM.render(
   <Provider store={store}>

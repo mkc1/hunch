@@ -17,17 +17,23 @@ class Game extends React.Component {
         this.showTopic = this.showTopic.bind(this);
     }
 
-    submitAnswer(answer) {
-        this.props.addAnswer(answer, this.props.user, this.props.game._id);
-    }
+    // submitAnswer(answer) {
+    //     console.log('props', this.props)
+    //     console.log('adding this answer', answer);
+    //     this.props.addAnswer(answer);
+    // }
 
     nextTopic() {
         console.log('next topic');
     }
 
     showTopic() {
-        let topic = this.props.game.topics[this.props.game.round-1].topic;
+        let topic = this.props.game.topics[0].topic;
         return topic;
+    }
+
+    showAnswers() {
+        return this.props.answers;
     }
 
     render() {
@@ -37,7 +43,10 @@ class Game extends React.Component {
                     <div>
                         {this.showTopic()}
                     </div>
-                        <Form liftData={this.submitAnswer}/>
+                    <div>
+                        {this.showAnswers()}
+                    </div>
+                        <Form liftData={(answer)=>this.props.addAnswer(answer, this.props.user, this.props.game._id)}/>
                 </div>
         );
     }
@@ -48,12 +57,13 @@ function mapStateToProps(state) {
     console.log('game??pls', state.game);
     return {
         user: state.user,
-        game: state.game
+        game: state.game,
+        answers: state.game.answers
     }
 };
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ addAnswer: addAnswer }, dispatch)
+    return bindActionCreators({ addAnswer }, dispatch)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

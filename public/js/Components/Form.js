@@ -17,8 +17,8 @@ class Form extends React.Component {
     }
 
     handleSubmit(e) {
-        this.props.liftData(this.state.input);
         e.preventDefault();
+        this.props.liftData(this.state.input);
         return;
     }
 

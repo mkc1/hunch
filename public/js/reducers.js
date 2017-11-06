@@ -4,9 +4,7 @@ const ADD_USERNAME = "ADD_USERNAME";
 const ADD_GAME = "ADD_GAME";
 const ADD_ANSWER = "ADD_ANSWER";
 
-let initial = {};
-
-const rootReducer = function(state=initial, action) {
+const rootReducer = function(state={}, action) {
     console.log('REDUCER', state, action)
     let newState;
     switch (action.type) {
