@@ -1,11 +1,47 @@
-body {
-    font-family: 'Helvetica';
-    color: white;
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+html {
+	min-height: 100%;
 }
 
-div {
+body {
+    font-family: 'Lato', sans-serif;
+    color: white;
     margin: 0 auto;
     padding: 10px 0;
-    background: rgb(1, 147, 154);
+    background: #01939a;
+    background: linear-gradient(#00b8c1, #005a5f);
+    min-height: 100%
+}
+
+.main-container {
     width: 60%;
+    margin: 0 auto;	
+    text-align: center;
+}
+
+.logo {
+	font-family: 'Oswald', sans-serif;
+	font-size: 50px;
+	font-weight: bold;
+	margin: 0;
+	color: #00686d;
+	padding-left: 1em;
+}
+
+.logo-container {
+	background-color: white;
+}
+
+.footer {
+	 position:absolute;
+   bottom:0;
+   width:100%;
+   text-align: center;
+}
+
+.name-label {
+	display: block;
+	padding-bottom: 5px;
 }

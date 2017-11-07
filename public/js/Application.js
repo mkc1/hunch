@@ -16,18 +16,24 @@ class Application extends React.Component {
 
         return(
             <div>
-                <div>
-                    <h2>Welcome! {this.props.user}</h2>
+                <div className='logo-container'>
+                    <h2 className='logo'>Hunch</h2>
                 </div>
-                <div>
-                    {(!this.props.user) ? 
-                        <Form liftData={
-                            (name)=>this.props.addUsername(name)
-                        } />
-                    :
-                        <ChooseGame username={this.props.user} />
-                    }
+                <div className='main-container'>
+                    <div>
+                        <h2>Welcome{this.props.user ? ` ${this.props.user}` : ''}!</h2>
+                    </div>
+                    <div>
+                        {(!this.props.user) ? 
+                            <Form liftData={
+                                (name)=>this.props.addUsername(name)
+                            } />
+                        :
+                            <ChooseGame username={this.props.user} />
+                        }
+                    </div>
                 </div>
+                <p className='footer'>Created by Meredith Coulis, 2017</p>
             </div>
         )
     };
