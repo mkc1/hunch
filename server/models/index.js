@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const config = require('./../../config/index.js');
 
-mongoose.connect('mongodb://localhost/hunch', {
+const url = config.db;
+
+mongoose.connect(url, {
   useMongoClient: true,
 });
 
@@ -11,7 +14,8 @@ const UserSchema = new Schema({
         type: String
     },
     points: {
-        type: Number
+        type: Number,
+        default: 0
     }
 })
 
@@ -48,7 +52,8 @@ const AnswerSchema = new Schema({
 
 const GameSchema = new Schema({
     round: {
-        type: Number
+        type: Number,
+        default: 1
     },
     users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     topics: [{ type: Schema.Types.ObjectId, ref: 'Topic' }],
