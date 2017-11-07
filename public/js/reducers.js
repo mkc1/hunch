@@ -4,7 +4,9 @@ const ADD_USERNAME = "ADD_USERNAME";
 const ADD_GAME = "ADD_GAME";
 const ADD_ANSWER = "ADD_ANSWER";
 
-const rootReducer = function(state={}, action) {
+let initialState = {currentPlayers: []};
+
+const rootReducer = function(state=initialState, action) {
     console.log('REDUCER', state, action)
     let newState;
     switch (action.type) {
@@ -19,6 +21,16 @@ const rootReducer = function(state={}, action) {
         case ADD_ANSWER:
             console.log('adding an answer', action.payload)
             newState = Object.assign({}, state, {answer: action.payload});
+        case 'joined':
+            console.log('a test', action.data);
+            newState = { currentPlayers: [].concat(action.data) }
+            // newState = Object.assign({}, state, {currentPlayers: action.data});
+            return newState;
+        case 'new-game' || 'add-answer':
+            console.log('new game', action.data);
+            newState = Object.assign({}, state, {game: action.data});
+            // newState = Object.assign({}, state, {currentPlayers: action.data});
+            return newState;
         default:
             return state;
     }

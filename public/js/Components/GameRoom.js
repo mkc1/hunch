@@ -1,19 +1,18 @@
 import React from 'react';
-import socket from './../socket.js'
+// import socket from './../socket.js'
 import { Redirect, Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { addGame, createGame } from './../actions';
+import { connectSocket, addGame, createGame } from './../actions';
 
 
 class GameRoom extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentPlayers: [],
-            game: null
+            currentPlayers: []
         }
-        this._connected = this._connected.bind(this);
+        // this._connected = this._connected.bind(this);
         this._notifyNewPlayer = this._notifyNewPlayer.bind(this);
         this._updateCurrentPlayers = this._updateCurrentPlayers.bind(this);
         this._beginGame = this._beginGame.bind(this);
@@ -23,15 +22,17 @@ class GameRoom extends React.Component {
     componentDidMount() {
         const gameCode = this.props.location.state.code;
         const username = this.props.location.state.user;
+
+        this.props.connectSocket({ code: gameCode, name: username })
         // socket = io();
 
         // console.log('thisshould be the socket', socket);
         // socket.on('connect', this._connected);
-        socket.on('joined', this._notifyNewPlayer);
-        socket.on('players', this._updateCurrentPlayers);
-        socket.on('created', this._beginGame);
+        // socket.on('joined', this._notifyNewPlayer);
+        // socket.on('players', this._updateCurrentPlayers);
+        // socket.on('created', this._beginGame);
 
-        socket.emit('join-room', { code: gameCode, name: username });
+        // socket.emit('join-room', { code: gameCode, name: username });
     }
 
     _connected() {
@@ -61,29 +62,18 @@ class GameRoom extends React.Component {
         //     }
         // })
 
-        const users = this.state.currentPlayers.map(user=>{
+        const users = this.props.currentPlayers.map(user=>{
             return { name: user }
         })
 
-        console.log(users);
+        console.log('create', users);
 
-        this.props.createGame(users, this.props.location.state.code);
-
-        // axios.post('/game', {
-        //     users: users,
-        //     gameCode: this.props.location.state.code
-        // })
-        // .then((response)=> {
-        //     console.log(response.data);
-        // })
-        // .catch(function (error) {
-        //     console.log(error);
-        // });
+        this.props.addGame(users);
     }
 
     _beginGame(data) {
         console.log('begin game', data, this.props.location.state.code);
-        this.props.addGame(data);
+        // this.props.addGame(this.props.currentPlayers);
         // this.setState({game: data},()=> {
         //     console.log('new game!!!', this.state.game);
         // })
@@ -104,7 +94,7 @@ class GameRoom extends React.Component {
                     <p>Hi {username}. Your game code is {gameCode}</p>
                 </div>
                 <div>
-                    Players currently in game: {this.state.currentPlayers}
+                    Players currently in game: {this.props.currentPlayers}
                 </div>
                 {(isFirstPlayer) && (
                     <div>
@@ -116,7 +106,10 @@ class GameRoom extends React.Component {
                 <div>
                 {(this.props.game) && (
                     <Redirect to={{
-                        pathname: '/game'
+                        pathname: '/game',
+                        state: {
+                            user: this.props.location.state.user
+                        }
                     }} push/>
                 )}
                 </div>
@@ -128,13 +121,13 @@ class GameRoom extends React.Component {
 function mapStateToProps(state) {
     console.log('state also', state);
     return {
-        user: state.user,
+        currentPlayers: state.currentPlayers,
         game: state.game
     }
 };
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ addGame, createGame }, dispatch)
+    return bindActionCreators({ addGame, createGame, connectSocket }, dispatch)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameRoom);

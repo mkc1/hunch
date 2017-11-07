@@ -37,6 +37,7 @@ class Game extends React.Component {
     }
 
     render() {
+        const username = this.props.location.state.user;
         console.log('props from game', this.props);
         return(
                 <div>
@@ -46,7 +47,7 @@ class Game extends React.Component {
                     <div>
                         {this.showAnswers()}
                     </div>
-                        <Form liftData={(answer)=>this.props.addAnswer(answer, this.props.user, this.props.game._id)}/>
+                        <Form liftData={(answer)=>this.props.addAnswer(answer, username, this.props.game._id)}/>
                 </div>
         );
     }
