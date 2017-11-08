@@ -6,13 +6,18 @@ html {
 }
 
 body {
+	margin: 0;
+	min-height: 100%;
+}
+
+.app-container {
     font-family: 'Lato', sans-serif;
-    color: white;
+    color: #625772;
     margin: 0 auto;
     padding: 10px 0;
-    background: #01939a;
-    background: linear-gradient(#00b8c1, #005a5f);
-    min-height: 100%
+    background: #A9EEE6;
+    /*background: linear-gradient(#FEFAEC, #005a5f);*/
+    min-height:100vh;
 }
 
 .main-container {
@@ -23,25 +28,65 @@ body {
 
 .logo {
 	font-family: 'Oswald', sans-serif;
-	font-size: 50px;
+	font-size: 55px;
 	font-weight: bold;
 	margin: 0;
-	color: #00686d;
+	color: #625772;
 	padding-left: 1em;
+	text-shadow: 2px 2px #ffa4a4
 }
 
 .logo-container {
-	background-color: white;
-}
-
-.footer {
-	 position:absolute;
-   bottom:0;
-   width:100%;
-   text-align: center;
+	background-color: #FEFAEC;
+	border-bottom: 13px #F38181 solid;
+	/*background: linear-gradient(90deg, #FEFAEC 20%, transparent);*/
 }
 
 .name-label {
 	display: block;
 	padding-bottom: 5px;
+}
+
+.name-input {
+	width: 9em;
+	display: block;
+	margin: 15px auto;
+	min-height: 25px;
+	font-size: 18px;
+	font-weight: bold;
+	border: 2px solid #625772;
+  border-radius: 7px;
+  padding: 5px 10px;
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+}
+
+.name-input:focus {
+	outline: none;
+  border-color: #ffccd2;
+  box-shadow: 0 0 10px #ffccd2;
+}
+
+.submit-btn {
+	letter-spacing: 2px;
+	font-size: 20px;
+	font-weight: bold;
+  padding: 15px 25px;
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: #FEFAEC;
+  border: none;
+  border-radius: 10px;
+  background-image: linear-gradient(to right, #F38181 0%, #625772 51%, #F38181 100%);
+}
+
+.submit-btn:hover {
+	background-position: right center;
+}
+
+.submit-btn:focus {
+	outline: none;
 }

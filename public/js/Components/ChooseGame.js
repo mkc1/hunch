@@ -50,7 +50,7 @@ class ChooseGame extends React.Component {
                     <div>
                         <div>
                             <h3>start new game</h3>
-                            <button onClick={()=>{this.handleNewGame()}}>new game</button>
+                            <button className='submit-btn' onClick={()=>{this.handleNewGame()}}>new game</button>
                         </div>
                         <div>
                             <h3>join existing game</h3>

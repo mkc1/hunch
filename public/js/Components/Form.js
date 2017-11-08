@@ -26,9 +26,9 @@ class Form extends React.Component {
         return(
                 <div>
                     <form onSubmit={this.handleSubmit}>
-                        <label className='name-label'>Please enter your name:</label>
-                            <input type="text" name="name" onChange={this.handleInput} />
-                        <input type="submit" value="Submit" />
+                        <label className="name-label">Please enter your name:</label>
+                            <input className="name-input" type="text" name="name" onChange={this.handleInput} />
+                        <input className="submit-btn" type="submit" value="Submit" />
                     </form>
                 </div>
         );

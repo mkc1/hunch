@@ -15,11 +15,11 @@ class Application extends React.Component {
         console.log('application', this.props.user);
 
         return(
-            <div>
-                <div className='logo-container'>
-                    <h2 className='logo'>Hunch</h2>
+            <div className="app-container">
+                <div className="logo-container">
+                    <h2 className="logo">Hunch</h2>
                 </div>
-                <div className='main-container'>
+                <div className="main-container">
                     <div>
                         <h2>Welcome{this.props.user ? ` ${this.props.user}` : ''}!</h2>
                     </div>
@@ -33,7 +33,6 @@ class Application extends React.Component {
                         }
                     </div>
                 </div>
-                <p className='footer'>Created by Meredith Coulis, 2017</p>
             </div>
         )
     };
