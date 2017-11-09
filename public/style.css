@@ -21,7 +21,7 @@ body {
 }
 
 .main-container {
-    width: 60%;
+    /*width: 60%;*/
     margin: 0 auto;	
     text-align: center;
 }
@@ -57,6 +57,7 @@ body {
 	border: 2px solid #625772;
   border-radius: 7px;
   padding: 5px 10px;
+  color: #625772;
   -webkit-transition: all 0.30s ease-in-out;
   -moz-transition: all 0.30s ease-in-out;
   -ms-transition: all 0.30s ease-in-out;
@@ -71,9 +72,9 @@ body {
 
 .submit-btn {
 	letter-spacing: 2px;
-	font-size: 20px;
+	font-size: 22px;
 	font-weight: bold;
-  padding: 15px 25px;
+  padding: 13px 23px;
   text-align: center;
   transition: 0.5s;
   background-size: 200% auto;
@@ -89,4 +90,23 @@ body {
 
 .submit-btn:focus {
 	outline: none;
+}
+
+.panel {
+	padding: 20px 10px;
+	border: 2px #F38181 solid;
+	border-radius: 20px;
+  max-width: 450px;
+  margin: 0 auto;
+  background: #FEFAEC;
+}
+
+.or-div {
+	margin: 20px;
+}
+
+.option-text {
+	margin-bottom: 18px;
+	font-size: 22px;
+	font-weight: bold;
 }

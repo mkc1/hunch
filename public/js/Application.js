@@ -15,9 +15,9 @@ class Application extends React.Component {
         console.log('application', this.props.user);
 
         return(
-            <div className="app-container">
-                <div className="logo-container">
-                    <h2 className="logo">Hunch</h2>
+            <div className='app-container'>
+                <div className='logo-container'>
+                    <h2 className='logo'>Hunch</h2>
                 </div>
                 <div className="main-container">
                     <div>
@@ -25,9 +25,9 @@ class Application extends React.Component {
                     </div>
                     <div>
                         {(!this.props.user) ? 
-                            <Form liftData={
+                            <div className='panel'><Form formLabel='Please enter your name:' liftData={
                                 (name)=>this.props.addUsername(name)
-                            } />
+                            } /></div>
                         :
                             <ChooseGame username={this.props.user} />
                         }
