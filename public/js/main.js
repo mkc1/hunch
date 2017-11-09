@@ -15,6 +15,8 @@ import GameRoom from './Components/GameRoom';
 import Game from './Components/Game';
 let socketIoMiddleware = createSocketIoMiddleware(socket, "server/");
 
+document.title = 'Hunch';
+
 const store = createStore(rootReducer, applyMiddleware(socketIoMiddleware, thunk));
 
 // socket(store);
