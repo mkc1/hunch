@@ -23,7 +23,7 @@ class GameRoom extends React.Component {
         const gameCode = this.props.location.state.code;
         const username = this.props.location.state.user;
 
-        this.props.connectSocket({ code: gameCode, name: username })
+        this.props.connectSocket({ code: gameCode, name: username });
         // socket = io();
 
         // console.log('thisshould be the socket', socket);

@@ -110,3 +110,13 @@ body {
 	font-size: 22px;
 	font-weight: bold;
 }
+
+.user-box {
+    background: rgba(255, 102, 102, 1);
+    padding: 20px;
+    margin: 20px;
+}
+
+.user-box[draggable="false"] {
+    background: rgba(255, 102, 102, 0.6);
+}
