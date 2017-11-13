@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import Form from './Form';
+import { withRouter } from 'react-router';
 
 class ChooseGame extends React.Component {
     constructor(props) {
@@ -27,23 +28,25 @@ class ChooseGame extends React.Component {
     }
 
     handleNewGame() {
-        console.log('handle new game')
+        let self = this;
+        console.log('handle new game', self.props.history)
         const newCode = this.generateGameCode();
         this.setState({
             gameCode: newCode,
-            firstPlayer: true,
-            fireRedirect: true
-        }, ()=>{console.log('state changed')});
+            firstPlayer: true
+        }, ()=>{self.props.history.push('/start-game', {code: newCode, user: this.props.username, first: true})});
     }
 
     handleJoinGame(code) {
         const gameCode = code;
         console.log('game code', gameCode, this.state.firstPlayer);
-        this.setState({ gameCode: gameCode, fireRedirect: true });
+        this.setState({ gameCode: gameCode}, ()=>{
+            this.props.history.push('/start-game', {code: gameCode, user: this.props.username, first: false});
+        });
     }
 
     render(){
-        console.log('username from choosegame', this.props.username);
+        console.log('username from choosegame', this.props.history);
         return(
             <div>
                 {(!this.state.fireRedirect) && (
@@ -61,18 +64,9 @@ class ChooseGame extends React.Component {
                         </div>
                     </div>
                 )}
-                {(this.state.fireRedirect) && (
-                    <Redirect to={{
-                        pathname: '/start-game',
-                        state: { 
-                            code: this.state.gameCode,
-                            user: this.props.username,
-                            first: this.state.firstPlayer 
-                        }
-                    }} push/>
-                )}
             </div>
     )}
 }
 
-export default ChooseGame;
+
+export default withRouter(ChooseGame);

@@ -13,6 +13,7 @@ import css from './../style.css';
 import Application from './Application';
 import GameRoom from './Components/GameRoom';
 import Game from './Components/Game';
+import Selections from './Components/Selections';
 let socketIoMiddleware = createSocketIoMiddleware(socket, "server/");
 
 document.title = 'Hunch';
@@ -25,11 +26,19 @@ const store = createStore(rootReducer, applyMiddleware(socketIoMiddleware, thunk
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-        <Switch>
-          <Route exact path='/' component={ Application }/>
-          <Route path='/start-game' component={ GameRoom }/>
-          <Route path='/game' component={ Game }/>
+      <div className='app-container'>
+        <div className='logo-container'>
+            <h2 className='logo'>Hunch</h2>
+        </div>
+        <div className="main-container">
+          <Switch>
+            <Route exact path='/' component={ Application }/>
+            <Route path='/start-game' component={ GameRoom }/>
+            <Route path='/game' component={ Game }/>
+            <Route path='/selections' component={ Selections }/>
         </Switch>
+        </div>
+      </div>
     </Router>
   </Provider>,
   document.getElementById('app')

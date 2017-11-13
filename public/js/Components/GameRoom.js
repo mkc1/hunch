@@ -1,6 +1,7 @@
 import React from 'react';
 // import socket from './../socket.js'
 import { Redirect, Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { connectSocket, addGame, createGame } from './../actions';
@@ -17,13 +18,14 @@ class GameRoom extends React.Component {
         this._updateCurrentPlayers = this._updateCurrentPlayers.bind(this);
         this._beginGame = this._beginGame.bind(this);
         this.createGame = this.createGame.bind(this);
+        this.copyCode = this.copyCode.bind(this);
     }
 
     componentDidMount() {
         const gameCode = this.props.location.state.code;
         const username = this.props.location.state.user;
 
-        this.props.connectSocket({ code: gameCode, name: username })
+        this.props.connectSocket({ code: gameCode, name: username });
         // socket = io();
 
         // console.log('thisshould be the socket', socket);
@@ -71,6 +73,22 @@ class GameRoom extends React.Component {
         this.props.addGame(users);
     }
 
+    copyCode() {
+        var text = document.createElement("textarea");
+        text.value = this.props.location.state.code;
+        document.body.appendChild(text);
+        text.select();
+        document.execCommand('copy');
+        document.body.removeChild(text);
+        var flash = document.getElementById('flash-container');
+        flash.style.visibility = 'visible';
+        flash.style.opacity = '1';
+        setTimeout(() => {
+            flash.style.visibility = 'hidden';
+            flash.style.opacity = '0';
+        }, 1500);
+    }
+
     _beginGame(data) {
         console.log('begin game', data, this.props.location.state.code);
         // this.props.addGame(this.props.currentPlayers);
@@ -83,15 +101,18 @@ class GameRoom extends React.Component {
 
     render() {
         const gameCode = this.props.location.state.code;
-        const username = this.props.location.state.user;
+        const username = this.props.location.state.username;
         const isFirstPlayer = this.props.location.state.first;
 
-        console.log('this props rendering', this.props)
+        // console.log('this props rendering', this.props)
 
         return(
-            <div>
+            <div  className='panel'>
                 <div>
-                    <p>Hi {username}. Your game code is {gameCode}</p>
+                    <div id='flash-container' className='flash-container'>
+                        <p className='flash-text'>Code copied to clipboard &#10004;</p>
+                    </div>
+                    <p>Your game code is <a className='game-code' onClick={this.copyCode}>{gameCode}</a></p>
                 </div>
                 <div>
                     Players currently in game: {this.props.currentPlayers}
@@ -100,7 +121,7 @@ class GameRoom extends React.Component {
                     <div>
                         <p>You are the first one here!</p>
                         <p>When all other players have joined the game, click 'start'!</p>
-                        <button onClick={this.createGame}>start</button>
+                        <button className='submit-btn' onClick={this.createGame}>Start</button>
                     </div>
                 )}
                 <div>
@@ -130,4 +151,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({ addGame, createGame, connectSocket }, dispatch)
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(GameRoom);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(GameRoom));

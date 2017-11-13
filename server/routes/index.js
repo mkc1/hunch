@@ -24,7 +24,7 @@ module.exports = function(io) {
     });
 
     router.post('/game/answer', (req, res, next) => {
-
+        console.log('the answer route', req.body)
         return User.findOne({ name: req.body.user  })
         .then(user=>{
             return Game.findOneAndUpdate({_id: req.body.game},
@@ -54,21 +54,58 @@ module.exports = function(io) {
     //     })
     // });
 
-    router.put('/game/answer/:id', (req, res, next) => {
+    router.post('/game/selections', (req, res, next) => {
 
-        return Game.findOne({'answers._id': req.params.id})
+        console.log('made it to game!!!! selections', req.body.selection)
+
+        // return Game.findOne({'answers._id': req.params.id})
+        // .then(game =>{
+        //     console.log('game!!!', game)
+        //     var foundAnswer = game.answers.find(answer=>{
+        //         return answer._id.toString()===req.params.id
+        //     })
+        //     foundAnswer.selections.push(req.body.selection);
+        //     console.log('foundanswers?', foundAnswer.selections)
+        //     return game.save();
+        //     // return game.answers = game.answers.map(answer =>{
+        //     //     if (answer._id.toString()===req.params.id) {
+        //     //         answer.selections.push(req.body.selection)
+        //     //     }
+        //     //     console.log('answerrrr', answer)
+        //     //     return answer;
+        //     // })
+        //     // console.log('the game?!!!!!', game)
+        //     // // console.log('answer?!', game.answers.id(req.params.id))
+        //     // // game.answers.id(req.params.id).selections.push(req.body)
+        //     // // return game.save()
+        // })
+        // .then(game =>{
+        //     res.status(201).send(game);
+        // })
+        // .catch(error =>{
+        //     console.log('error', error)
+        // })
+
+        return Game.findById(req.body.game)
         .then(game =>{
-            // game.answers = game.answers.map(answer =>{
-            //     if (answer._id.toString()===req.params.id) {
-            //         answer.selections.push(req.body.selection)
-            //     }
-            //     return answer;
-            // })
-            game.answers.id(req.params.id).selections.push(req.body)
-            return game.save()
+            console.log('game!!!', game)
+
+            req.body.selections.forEach(selection =>{
+
+                var foundAnswer = game.answers.find(answer =>{
+                    return (answer._id.toString()===selection.answer)
+                })
+                foundAnswer.selections.push(selection.selection)
+            })
+
+            return game.save();
         })
         .then(game =>{
+            console.log('saved', game.answers)
             res.status(201).send(game);
+        })
+        .catch(error =>{
+            console.log('error', error)
         })
     });
 
