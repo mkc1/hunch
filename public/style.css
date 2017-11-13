@@ -112,6 +112,7 @@ body {
 	font-weight: bold;
 }
 
+<<<<<<< HEAD
 .game-code {
 	font-weight: bold;
 	color: #F38181;
@@ -153,4 +154,14 @@ body {
 	padding: 6px;
 	bottom: 45px;
 	border-radius: 10px;
+}
+
+.user-box {
+    background: rgba(255, 102, 102, 1);
+    padding: 20px;
+    margin: 20px;
+}
+
+.user-box[draggable="false"] {
+    background: rgba(255, 102, 102, 0.6);
 }
