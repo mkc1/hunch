@@ -25,11 +25,18 @@ const store = createStore(rootReducer, applyMiddleware(socketIoMiddleware, thunk
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-        <Switch>
-          <Route exact path='/' component={ Application }/>
-          <Route path='/start-game' component={ GameRoom }/>
-          <Route path='/game' component={ Game }/>
-        </Switch>
+      <div className='app-container'>
+        <div className='logo-container'>
+            <h2 className='logo'>Hunch</h2>
+        </div>
+        <div className="main-container">
+          <Switch>
+            <Route exact path='/' component={ Application }/>
+            <Route path='/start-game' component={ GameRoom }/>
+            <Route path='/game' component={ Game }/>
+          </Switch>
+        </div>
+      </div>
     </Router>
   </Provider>,
   document.getElementById('app')

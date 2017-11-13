@@ -11,18 +11,18 @@ body {
 }
 
 .app-container {
-  font-family: 'Lato', sans-serif;
-  color: #625772;
-  margin: 0 auto;
-  padding: 10px 0;
-  background: #A9EEE6;
-  /*background: linear-gradient(#FEFAEC, #005a5f);*/
-  min-height:100vh;
+	  font-family: 'Lato', sans-serif;
+	  color: #625772;
+	  margin: 0 auto;
+	  padding: 10px 0;
+	  background: #A9EEE6;
+	  /*background: linear-gradient(#FEFAEC, #005a5f);*/
+	  min-height:100vh;
 }
 
 .main-container {
-  margin: 0 auto;	
-  text-align: center;
+	  margin: 0 auto;	
+	  text-align: center;
 }
 
 .logo {
@@ -38,6 +38,7 @@ body {
 .logo-container {
 	background-color: #FEFAEC;
 	border-bottom: 13px #F38181 solid;
+	margin-bottom: 35px;
 	/*background: linear-gradient(90deg, #FEFAEC 20%, transparent);*/
 }
 
@@ -54,33 +55,33 @@ body {
 	font-size: 18px;
 	font-weight: bold;
 	border: 2px solid #625772;
-  border-radius: 7px;
-  padding: 5px 10px;
-  color: #625772;
-  -webkit-transition: all 0.30s ease-in-out;
-  -moz-transition: all 0.30s ease-in-out;
-  -ms-transition: all 0.30s ease-in-out;
-  -o-transition: all 0.30s ease-in-out;
+ 	border-radius: 7px;
+ 	padding: 5px 10px;
+ 	color: #625772;
+ 	-webkit-transition: all 0.30s ease-in-out;
+ 	-moz-transition: all 0.30s ease-in-out;
+ 	-ms-transition: all 0.30s ease-in-out;
+ 	-o-transition: all 0.30s ease-in-out;
 }
 
 .name-input:focus {
 	outline: none;
-  border-color: #ffccd2;
-  box-shadow: 0 0 10px #ffccd2;
+ 	border-color: #ffccd2;
+ 	box-shadow: 0 0 10px #ffccd2;
 }
 
 .submit-btn {
 	letter-spacing: 2px;
 	font-size: 22px;
 	font-weight: bold;
-  padding: 13px 23px;
-  text-align: center;
-  transition: 0.5s;
-  background-size: 200% auto;
-  color: #FEFAEC;
-  border: none;
-  border-radius: 10px;
-  background-image: linear-gradient(to right, #F38181 0%, #625772 51%, #F38181 100%);
+	padding: 13px 23px;
+	text-align: center;
+	transition: 0.5s;
+	background-size: 200% auto;
+	color: #FEFAEC;
+	border: none;
+	border-radius: 10px;
+	background-image: linear-gradient(to right, #F38181 0%, #625772 51%, #F38181 100%);
 }
 
 .submit-btn:hover {
@@ -95,10 +96,10 @@ body {
 	padding: 20px 10px;
 	border: 4px #F38181 solid;
 	border-radius: 20px;
-  max-width: 450px;
-  margin: 0 auto;
-  background: #FEFAEC;
-  box-shadow: 0 0 0 8pt #FEFAEC;
+  	max-width: 450px;
+  	margin: 0 auto;
+  	background: #FEFAEC;
+  	box-shadow: 0 0 0 8pt #FEFAEC;
 }
 
 .or-div {
@@ -109,4 +110,47 @@ body {
 	margin-bottom: 18px;
 	font-size: 22px;
 	font-weight: bold;
+}
+
+.game-code {
+	font-weight: bold;
+	color: #F38181;
+	font-size: 20px;
+}
+
+.game-code:hover {
+	cursor: pointer;
+	color: #b95e5e;
+}
+
+.copy-code-text {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	height: 2em;
+	width: 2em;
+	padding: 0;
+	border: none;
+	outline: none;
+	box-shadow: none;
+	background: transparent;
+	color: #A9EEE6;
+}
+
+.flash-container {
+	position: absolute;
+	left: 50%;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0.5s, opacity 0.5s linear;
+}
+
+.flash-text {
+	position: relative;
+	left: -50%;
+	background: #625772;
+	color: #FEFAEC;
+	padding: 6px;
+	bottom: 45px;
+	border-radius: 10px;
 }
