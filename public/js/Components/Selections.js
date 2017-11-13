@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import update from 'immutability-helper';
 
@@ -78,8 +79,8 @@ class Selections extends React.Component {
         let self = this;
         let display;
         return this.props.answers.map(function(answer){
-            let selection = self.state.selections.find((element)=>element[answer.text]) || null;
-            if (selection) display = selection[answer.text];
+            let selection = self.state.selections.find((element)=>element[answer.answer]) || null;
+            if (selection) display = selection[answer.answer];
             else display = "";
             return (
                 <div style={{margin: '20px'}}>
@@ -87,8 +88,8 @@ class Selections extends React.Component {
                         onDragOver={self.preventDefault}
                         onDrop={e => self.drop(e, answer) }
                         style={{padding: '20px', background: "#809fff"}}
-                        key={answer.text}
-                    >{answer.text}
+                        key={answer.answer}
+                    >{answer.answer}
                     </div>
                     <div style={{ color: 'black' }}>{display}</div>
                     {display.length > 0 &&
@@ -128,17 +129,17 @@ class Selections extends React.Component {
         // this.setState({data: newData});
 
         let newSelections;
-        let existingSelection = this.state.selections.find((element)=>element[answer.text]);
+        let existingSelection = this.state.selections.find((element)=>element[answer.answer]);
 
         if (!existingSelection) {
             console.log('didn find it!')
-            selection[String(answer.text)] = user.name;
+            selection[String(answer.answer)] = user.name;
             console.log('selection', selection)
             newSelections = this.state.selections.concat([selection]);
         } else {
             console.log('found it!')
             this.state.selections.indexOf(existingSelection);
-            let updatedSelection = update(existingSelection, {[answer.text]: {$set: user.name}});
+            let updatedSelection = update(existingSelection, {[answer.answer]: {$set: user.name}});
 
             newSelections = update(this.state.selections, {
                 $splice: [[this.state.selections.indexOf(existingSelection), 1, updatedSelection]]
@@ -188,16 +189,24 @@ class Selections extends React.Component {
         });
     }
 
+    submitSelections() {
+
+        const selections = [];
+        let newSelection;
+    }
+
     render() {
         return(
                 <div>
-                    <div style={{float: "left", color: "white"}}>
-                        {this.showUsers()}
+                    <div>
+                        <div style={{float: "left", color: "white"}}>
+                            {this.showUsers()}
+                        </div>
+                        <div style={{float: "right", color: "white"}}>
+                            {this.showAnswers()}
+                        </div>
                     </div>
-                    <div style={{float: "right", color: "white"}}>
-                        {this.showAnswers()}
-                    </div>
-                    <button>Submit</button>
+                    <button onClick={this.submitSelections}>Submit</button>
                 </div>
         );
     }
@@ -207,9 +216,9 @@ function mapStateToProps(state) {
     console.log('state also', state);
     console.log('game??pls', state.game);
     return {
-        game: this.state.game,
-        answers: this.state.game.answers,
-        users: this.state.game.users
+        game: state.game,
+        answers: state.game.answers,
+        users: state.game.users
     }
 };
 
@@ -217,4 +226,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({}, dispatch)
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Selections);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Selections));

@@ -30,6 +30,7 @@ ReactDOM.render(
           <Route exact path='/' component={ Application }/>
           <Route path='/start-game' component={ GameRoom }/>
           <Route path='/game' component={ Game }/>
+          <Route path='/selections' component={ Selections }/>
         </Switch>
     </Router>
   </Provider>,

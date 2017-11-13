@@ -1,6 +1,7 @@
 import React from 'react';
 // import socket from './../socket.js'
 import { Redirect, Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { connectSocket, addGame, createGame } from './../actions';
@@ -83,7 +84,7 @@ class GameRoom extends React.Component {
 
     render() {
         const gameCode = this.props.location.state.code;
-        const username = this.props.location.state.user;
+        const username = this.props.location.state.username;
         const isFirstPlayer = this.props.location.state.first;
 
         console.log('this props rendering', this.props)
@@ -130,4 +131,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({ addGame, createGame, connectSocket }, dispatch)
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(GameRoom);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(GameRoom));

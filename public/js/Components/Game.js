@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { addAnswer } from './../actions';
 import Form from './Form.js';
 
@@ -10,13 +11,13 @@ class Game extends React.Component {
         super(props);
 
         this.state = {
-            round: 1
+            round: 1,
+            unansweredUsers: []
         };
 
         this.nextTopic = this.nextTopic.bind(this);
         this.showTopic = this.showTopic.bind(this);
-        this.showUsers = this.showUsers.bind(this);
-        this.showAnswers = this.showAnswers.bind(this);
+        this.showUnansweredUsers = this.showUnansweredUsers.bind(this);
     }
 
     // submitAnswer(answer) {
@@ -24,6 +25,40 @@ class Game extends React.Component {
     //     console.log('adding this answer', answer);
     //     this.props.addAnswer(answer);
     // }
+
+    componentWillMount() {
+        let unansweredUsers = this.props.users.map(user =>{
+            return {id: user._id, name: user.name};
+        })
+
+        this.setState({unansweredUsers: [].concat(unansweredUsers)}, ()=>{
+            console.log('ssgsge', this.state.unansweredUsers);
+        })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        let data = [];
+
+        let answeredUsers = nextProps.answers.map(answer=> {
+            return answer.user;
+        })
+
+        nextProps.users.forEach(user=> {
+            console.log('user', user)
+            console.log('ay', answeredUsers.indexOf(user._id))
+            if (answeredUsers.indexOf(user._id)===-1) {
+                data.push({id: user._id, name: user.name});
+            }
+        })
+
+        if (data.length<1) {
+            this.props.history.push('/selections');
+        }
+
+        this.setState({unansweredUsers: [].concat(data)}, ()=>{
+            console.log(this.state.unansweredUsers)
+        })
+    }
 
     nextTopic() {
         console.log('next topic');
@@ -40,9 +75,17 @@ class Game extends React.Component {
     //     });
     // }
 
-    showUsers() {
-        return this.props.users.map((i)=>{
-            return i.name;
+    showUnansweredUsers() {
+
+        // let answeredUsers = this.props.answers.map(answer =>{
+        //     if (answer.user===)
+        // })
+        // let unansweredUsers = this.props.answers(answer=> {
+        //     return answer
+        // })
+
+        return this.state.unansweredUsers.map(user=> {
+            return user.name;
         });
     }
 
@@ -51,14 +94,11 @@ class Game extends React.Component {
         console.log('props from game', this.props);
         return(
                 <div>
-                    <div>Users:
-                        {this.showUsers()}
-                    </div>
                     <div>Topics:
                         {this.showTopic()}
                     </div>
-                    <div>Answers:
-                        {this.showAnswers()}
+                    <div>Waiting on:
+                        {this.showUnansweredUsers()}
                     </div>
                         <Form liftData={(answer)=>this.props.addAnswer(answer, username, this.props.game._id)}/>
                 </div>
@@ -80,4 +120,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({ addAnswer }, dispatch)
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Game);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Game));
