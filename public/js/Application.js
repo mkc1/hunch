@@ -12,7 +12,7 @@ class Application extends React.Component {
     }
 
     render() {
-        console.log('application', this.props.user);
+        console.log('application', this.props.history);
 
         return(
             <div className='app-container'>

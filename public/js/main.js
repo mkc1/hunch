@@ -13,6 +13,7 @@ import css from './../style.css';
 import Application from './Application';
 import GameRoom from './Components/GameRoom';
 import Game from './Components/Game';
+import Selections from './Components/Selections';
 let socketIoMiddleware = createSocketIoMiddleware(socket, "server/");
 
 document.title = 'Hunch';
@@ -29,6 +30,7 @@ ReactDOM.render(
           <Route exact path='/' component={ Application }/>
           <Route path='/start-game' component={ GameRoom }/>
           <Route path='/game' component={ Game }/>
+          <Route path='/selections' component={ Selections }/>
         </Switch>
     </Router>
   </Provider>,

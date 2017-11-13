@@ -82,6 +82,7 @@ module.exports = (server) => {
         
                 Game.findById(action.data.gameId)
                 .populate('users')
+                .populate('topics')
                 .then(game =>{
                     console.log('gameusers', game.users)
                     console.log(action.data)
@@ -95,7 +96,7 @@ module.exports = (server) => {
                 })
                 .then(savedGame => {
                     console.log('game:', savedGame)
-                    io.to(gameCode).emit('action', {type: 'new-game', data:game});
+                    io.to(gameCode).emit('action', {type: 'new-game', data: savedGame});
                 })
                 .catch(error =>{
                     console.log('error', error);
