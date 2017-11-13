@@ -18,6 +18,7 @@ class GameRoom extends React.Component {
         this._updateCurrentPlayers = this._updateCurrentPlayers.bind(this);
         this._beginGame = this._beginGame.bind(this);
         this.createGame = this.createGame.bind(this);
+        this.copyCode = this.copyCode.bind(this);
     }
 
     componentDidMount() {
@@ -72,6 +73,22 @@ class GameRoom extends React.Component {
         this.props.addGame(users);
     }
 
+    copyCode() {
+        var text = document.createElement("textarea");
+        text.value = this.props.location.state.code;
+        document.body.appendChild(text);
+        text.select();
+        document.execCommand('copy');
+        document.body.removeChild(text);
+        var flash = document.getElementById('flash-container');
+        flash.style.visibility = 'visible';
+        flash.style.opacity = '1';
+        setTimeout(() => {
+            flash.style.visibility = 'hidden';
+            flash.style.opacity = '0';
+        }, 1500);
+    }
+
     _beginGame(data) {
         console.log('begin game', data, this.props.location.state.code);
         // this.props.addGame(this.props.currentPlayers);
@@ -87,12 +104,15 @@ class GameRoom extends React.Component {
         const username = this.props.location.state.username;
         const isFirstPlayer = this.props.location.state.first;
 
-        console.log('this props rendering', this.props)
+        // console.log('this props rendering', this.props)
 
         return(
-            <div>
+            <div  className='panel'>
                 <div>
-                    <p>Hi {username}. Your game code is {gameCode}</p>
+                    <div id='flash-container' className='flash-container'>
+                        <p className='flash-text'>Code copied to clipboard &#10004;</p>
+                    </div>
+                    <p>Your game code is <a className='game-code' onClick={this.copyCode}>{gameCode}</a></p>
                 </div>
                 <div>
                     Players currently in game: {this.props.currentPlayers}
@@ -101,7 +121,7 @@ class GameRoom extends React.Component {
                     <div>
                         <p>You are the first one here!</p>
                         <p>When all other players have joined the game, click 'start'!</p>
-                        <button onClick={this.createGame}>start</button>
+                        <button className='submit-btn' onClick={this.createGame}>Start</button>
                     </div>
                 )}
                 <div>
