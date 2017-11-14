@@ -114,7 +114,7 @@ class GameRoom extends React.Component {
                         return <div className='name-list-item' key={player}>{player}</div>
                     })}
                 </div>
-                <div  className='panel'>
+                <div className='panel'>
                     <div>
                         <div id='flash-container' className='flash-container'>
                             <p className='flash-text'>Code copied to clipboard &#10004;</p>
