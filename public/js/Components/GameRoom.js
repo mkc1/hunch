@@ -108,37 +108,37 @@ class GameRoom extends React.Component {
 
         return(
             <div>
-            <div className='panel left-panel'>
-                <div className='panel-title-sm'>Players currently in game</div>
-                {this.props.currentPlayers.map(player => {
-                    return <div className='name-list-item' key={player}>{player}</div>
-                })}
-            </div>
-            <div  className='panel'>
-                <div>
-                    <div id='flash-container' className='flash-container'>
-                        <p className='flash-text'>Code copied to clipboard &#10004;</p>
-                    </div>
-                    <p>Your game code is <a className='game-code' onClick={this.copyCode}>{gameCode}</a></p>
+                <div className='panel left-panel'>
+                    <div className='panel-title-sm'>Players currently in game</div>
+                    {this.props.currentPlayers.map(player => {
+                        return <div className='name-list-item' key={player}>{player}</div>
+                    })}
                 </div>
-                {(isFirstPlayer) && (
+                <div  className='panel'>
                     <div>
-                        <p>You are the first one here!</p>
-                        <p>When all other players have joined the game, click 'start'!</p>
-                        <button className='submit-btn' onClick={this.createGame}>Start</button>
+                        <div id='flash-container' className='flash-container'>
+                            <p className='flash-text'>Code copied to clipboard &#10004;</p>
+                        </div>
+                        <p>Your game code is <a className='game-code' onClick={this.copyCode}>{gameCode}</a></p>
                     </div>
-                )}
-                <div>
-                {(this.props.game) && (
-                    <Redirect to={{
-                        pathname: '/game',
-                        state: {
-                            user: this.props.location.state.user
-                        }
-                    }} push/>
-                )}
+                    {(isFirstPlayer) && (
+                        <div>
+                            <p>You are the first one here!</p>
+                            <p>When all other players have joined the game, click 'start'!</p>
+                            <button className='submit-btn' onClick={this.createGame}>Start</button>
+                        </div>
+                    )}
+                    <div>
+                    {(this.props.game) && (
+                        <Redirect to={{
+                            pathname: '/game',
+                            state: {
+                                user: this.props.location.state.user
+                            }
+                        }} push/>
+                    )}
+                    </div>
                 </div>
-            </div>
             </div>
         )
     }
