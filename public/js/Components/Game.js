@@ -66,7 +66,7 @@ class Game extends React.Component {
 
     showTopic() {
         let topic = this.props.game.topics[0].topic;
-        return topic;
+        return (<div className='topic-title'>{topic}</div>);
     }
 
     // showAnswers() {
@@ -93,8 +93,8 @@ class Game extends React.Component {
         const username = this.props.location.state.user;
         console.log('props from game', this.props);
         return(
-                <div>
-                    <div>Topics:
+                <div className='panel'>
+                    <div>Topic:
                         {this.showTopic()}
                     </div>
                     <div>Waiting on:

@@ -107,15 +107,19 @@ class GameRoom extends React.Component {
         // console.log('this props rendering', this.props)
 
         return(
+            <div>
+            <div className='panel left-panel'>
+                <div className='panel-title-sm'>Players currently in game</div>
+                {this.props.currentPlayers.map(player => {
+                    return <div className='name-list-item' key={player}>{player}</div>
+                })}
+            </div>
             <div  className='panel'>
                 <div>
                     <div id='flash-container' className='flash-container'>
                         <p className='flash-text'>Code copied to clipboard &#10004;</p>
                     </div>
                     <p>Your game code is <a className='game-code' onClick={this.copyCode}>{gameCode}</a></p>
-                </div>
-                <div>
-                    Players currently in game: {this.props.currentPlayers}
                 </div>
                 {(isFirstPlayer) && (
                     <div>
@@ -134,6 +138,7 @@ class GameRoom extends React.Component {
                     }} push/>
                 )}
                 </div>
+            </div>
             </div>
         )
     }

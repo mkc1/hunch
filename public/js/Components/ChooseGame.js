@@ -52,12 +52,12 @@ class ChooseGame extends React.Component {
                 {(!this.state.fireRedirect) && (
                     <div>
                         <div className='panel'>
-                            <div className='option-text'>Start a new game</div>
+                            <div className='panel-title'>Start a new game</div>
                             <button className='submit-btn' onClick={()=>{this.handleNewGame()}}>Start</button>
                         </div>
                         <div className='or-div'>or</div>
                         <div className='panel'>
-                            <div className='option-text'>Join an existing game</div>
+                            <div className='panel-title'>Join an existing game</div>
                             <Form formLabel='Enter game code' liftData={
                                 (gameCode)=>this.handleJoinGame(gameCode)
                             } />
