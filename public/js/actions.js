@@ -97,3 +97,18 @@ export const addAnswer = (answer, user, gameId) => {
     // }
 };
 
+export const addSelections = (selections, user, gameId) => {
+    console.log('add selections', selections, user, gameId);
+    return {
+        type: "server/add-selections",
+        data: {selections, user, gameId}
+    }
+};
+
+export const endOfRound = (gameId, currentPoints) => {
+    console.log('endofRound', currentPoints, gameId);
+    return {
+        type: "server/end-of-round",
+        data: {currentPoints, gameId}
+    }
+};

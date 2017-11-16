@@ -24,6 +24,7 @@ const rootReducer = function(state=initialState, action) {
         case 'joined':
             console.log('a test', action.data);
             newState = { currentPlayers: [].concat(action.data) }
+            return Object.assign({}, state, newState);
             // newState = Object.assign({}, state, {currentPlayers: action.data});
             return newState;
         case 'new-game' || 'add-answer':

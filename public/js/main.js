@@ -14,6 +14,7 @@ import Application from './Application';
 import GameRoom from './Components/GameRoom';
 import Game from './Components/Game';
 import Selections from './Components/Selections';
+import AnswerReveal from './Components/AnswerReveal';
 let socketIoMiddleware = createSocketIoMiddleware(socket, "server/");
 
 document.title = 'Hunch';
@@ -36,6 +37,7 @@ ReactDOM.render(
             <Route path='/start-game' component={ GameRoom }/>
             <Route path='/game' component={ Game }/>
             <Route path='/selections' component={ Selections }/>
+            <Route path='/results' component={ AnswerReveal }/>
         </Switch>
         </div>
       </div>
