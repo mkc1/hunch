@@ -101,8 +101,60 @@ module.exports = (server) => {
                 .catch(error =>{
                     console.log('error', error);
                 })
+            } else if (action.type === 'server/add-selections') {
+
+                Game.findById(action.data.gameId)
+                .populate('users')
+                .populate('answers')
+                .then(game =>{
+                    console.log('game!!!', action.data.selections)
+
+                    let user_g = game.users.find((user)=>user.name===action.data.user);
+
+                    game.answers.forEach(answer =>{
+                        if (action.data.selections[answer._id]) {
+                            console.log('um', action.data.selections[answer._id])
+                            let user_s = game.users.find((user)=>user.name==action.data.selections[answer._id])
+                            let isCorrect = (user_g._id===user_s._id);
+                            answer.selections.push({guessing_user: user_g._id, suspected_user: user_s._id, correct: isCorrect});
+                        }
+                    })
+
+                    return game.save();
+                })
+                .then(savedGame => {
+                    console.log('game?!:', savedGame.answers)
+                    io.to(gameCode).emit('action', {type: 'new-game', data: savedGame});
+                })
+                .catch(error =>{
+                    console.log('error', error);
+                })
+            } else if (action.type === 'server/end-of-round') {
+
+                Game.findById(action.data.gameId)
+                .then(game =>{
+                    console.log('game', game);
+
+                    game.users.forEach(user =>{
+                        if (action.data.currentPoints[user.name]) {
+                            user.points = action.data.currentPoints[user._id]++;
+                        }
+                    })
+                    game.answers.forEach(answer =>{
+                        game.answers.pull(answer._id);
+                    })
+                    game.round = game.round++;
+                    return game.save();
+                })
+                .then(savedGame => {
+                    console.log('game?!:', savedGame.round, savedGame.answers)
+                    io.to(gameCode).emit('action', {type: 'new-game', data: savedGame});
+                })
+                .catch(error =>{
+                    console.log('error', error);
+                })
             }
-        });
+        })
 
         // socket.on('get-current-players', function(gameCode){
         //     // console.log('trying to get players', gameCode);

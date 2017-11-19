@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import update from 'immutability-helper';
+import { addSelections } from './../actions';
 
 class Selections extends React.Component {
     constructor(props) {
@@ -21,6 +22,16 @@ class Selections extends React.Component {
         this.dragStart = this.dragStart.bind(this);
         this.drop = this.drop.bind(this);
         this.removeSelection = this.removeSelection.bind(this);
+        this.submitSelections = this.submitSelections.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps){
+        nextProps.answers.forEach(answer=> {
+            if (answer.selections.length!==nextProps.users.length) {
+                return;
+            };
+        });
+        this.props.history.push('/results');
     }
 
     // submitAnswer(answer) {
@@ -132,9 +143,9 @@ class Selections extends React.Component {
         let existingSelection = this.state.selections.find((element)=>element[answer.answer]);
 
         if (!existingSelection) {
-            console.log('didn find it!')
+            console.log('didnt find it!');
             selection[String(answer.answer)] = user.name;
-            console.log('selection', selection)
+            console.log('selection', selection);
             newSelections = this.state.selections.concat([selection]);
         } else {
             console.log('found it!')
@@ -147,11 +158,11 @@ class Selections extends React.Component {
 
         }
 
-        console.log('new', newSelections)
+        console.log('new', newSelections);
 
         this.setState({selections: newSelections}, function(){
             console.log('updated!!!!', this.state.selections)
-        })
+        });
 
         // if (!this.state.selections.find((element)=>element[answer.text])) {
         //     console.log('didn find it!')
@@ -191,8 +202,19 @@ class Selections extends React.Component {
 
     submitSelections() {
 
-        const selections = [];
-        let newSelection;
+        const selections = {};
+        const self = this;
+        
+        this.state.selections.forEach(selection =>{
+            self.props.answers.forEach(answer =>{
+                if (answer.answer===Object.keys(selection)[0]) {
+                    selections[answer._id] = selection[answer.answer];
+                }
+            });
+        })
+        console.log('submitted selections', selections);
+
+        this.props.addSelections(selections, this.props.user, this.props.game._id)
     }
 
     render() {
@@ -218,12 +240,13 @@ function mapStateToProps(state) {
     return {
         game: state.game,
         answers: state.game.answers,
-        users: state.game.users
+        users: state.game.users,
+        user: state.user
     }
 };
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({}, dispatch)
+    return bindActionCreators({addSelections}, dispatch)
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Selections));

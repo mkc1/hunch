@@ -150,19 +150,8 @@ describe('testing answers', () => {
 
                 return request.post('/game/selections')
                 .send({
-                    selections: [{
-                        answer: answer2._id,
-                        selection: {
-                            guessing_user: user2,
-                            suspected_user: user3
-                        }},
-                        {
-                        answer: answer3._id,
-                        selection: {
-                            guessing_user: user2,
-                            suspected_user: user1
-                        }}
-                    ],
+                    user: user1._id
+                    selections: {answr: uspecetuser, awrs, }
                     game: game1._id
                 })
             })
@@ -180,6 +169,47 @@ describe('testing answers', () => {
                 expect(answer3selections.length).toBe(2);
                 done();
             });
+        });
+
+        test('isCorrect method', (done) => {
+
+            console.log('ids', user1, user2)
+
+            let testSelections = [
+                {guessing_user: user1,
+                suspected_user: user3}, //incorrect
+                {guessing_user: user2,
+                suspected_user: user2}, //correct
+                {guessing_user: user3,
+                suspected_user: user2}  //correct
+            ];
+
+            testSelections.forEach(selection =>{
+                game1.answers[0].selections.push(selection)
+            })
+
+            console.log('game1id', game1._id)
+            return game1.save()
+            .then(function(game){
+                console.log('gameid', game._id)
+                game.answers[0].selections.forEach(selection =>{
+                    selection.checkCorrectSelections(game1.answers[0].user)
+                })
+                return game.save();
+            })
+            .then(function(game){
+                console.log('done?', game.answers[0])
+                done();
+            })
+            .catch(function(error){
+                console.log(error)
+                throw error
+            })
+
+            // console.log('methods', game1.answers[0].selections)
+
+            // done()
+            
         });
 
     });

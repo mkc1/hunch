@@ -60,6 +60,19 @@ const GameSchema = new Schema({
     answers: [AnswerSchema]
 })
 
+
+// methods
+
+// SelectionSchema.methods.createSelections = function(preSelections, user, answers) {
+//     if (this.suspected_user.toString()===answerId.toString()) {
+//         console.log('this selection is correct', this.suspected_user, answerId);
+//         this.correct = true;
+//     } else {
+//         console.log('this selection is incorrect', this.suspected_user, answerId)
+//         this.correct = false;
+//     }
+// }
+
 const Game = mongoose.model('Game', GameSchema);
 const User = mongoose.model('User', UserSchema);
 const Topic = mongoose.model('Topic', TopicSchema);
