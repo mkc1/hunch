@@ -102,17 +102,33 @@ body {
   	box-shadow: 0 0 0 8pt #FEFAEC;
 }
 
+.left-panel {
+	position: absolute;
+	left: 2em;
+}
+
 .or-div {
 	margin: 20px;
 }
 
-.option-text {
+.panel-title {
 	margin-bottom: 18px;
 	font-size: 22px;
 	font-weight: bold;
 }
 
-<<<<<<< HEAD
+.panel-title-sm {
+	font-weight: bold;
+	font-size: 18px;
+	margin-bottom: 10px;
+	padding: 5px;
+}
+
+.name-list-item {
+	padding: 5px;
+	border-top: 1px #d2aeae solid;
+}
+
 .game-code {
 	font-weight: bold;
 	color: #F38181;
@@ -164,4 +180,11 @@ body {
 
 .user-box[draggable="false"] {
     background: rgba(255, 102, 102, 0.6);
+}
+
+.topic-title {
+	font-weight: bold;
+	font-size: 34px;
+	font-family: 'Oswald', sans-serif;
+    letter-spacing: 1px;
 }
