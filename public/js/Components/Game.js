@@ -11,11 +11,13 @@ class Game extends React.Component {
         super(props);
 
         this.state = {
-            unansweredUsers: []
+            unansweredUsers: [],
+            submitted: false
         };
 
         this.nextTopic = this.nextTopic.bind(this);
         this.showTopic = this.showTopic.bind(this);
+        this.submitAnswer = this.submitAnswer.bind(this);
         this.showUnansweredUsers = this.showUnansweredUsers.bind(this);
     }
 
@@ -64,7 +66,7 @@ class Game extends React.Component {
     }
 
     showTopic() {
-        let topic = this.props.game.topics[this.props.game.round].topic;
+        let topic = this.props.game.topics[this.props.game.round-1].topic;
         return (<div className='topic-title'>{topic}</div>);
     }
 
@@ -88,6 +90,12 @@ class Game extends React.Component {
         });
     }
 
+    submitAnswer(answer) {
+        let username = this.props.location.state.user;
+        this.props.addAnswer(answer, username, this.props.game._id);
+        this.setState({submitted: true});
+    }
+
     render() {
         const username = this.props.location.state.user;
         console.log('props from game', this.props);
@@ -102,7 +110,11 @@ class Game extends React.Component {
                     <div>Waiting on:
                         {this.showUnansweredUsers()}
                     </div>
-                        <Form liftData={(answer)=>this.props.addAnswer(answer, username, this.props.game._id)}/>
+                    {(this.state.submitted) ?
+                        (<div>thanks for submitting!!!</div>)
+                        :
+                        (<Form liftData={this.submitAnswer}/>)
+                    }
                 </div>
         );
     }

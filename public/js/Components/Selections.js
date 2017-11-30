@@ -26,12 +26,17 @@ class Selections extends React.Component {
     }
 
     componentWillReceiveProps(nextProps){
+        let receivedSelections = true;
         nextProps.answers.forEach(answer=> {
             if (answer.selections.length!==nextProps.users.length) {
-                return;
+                console.log('checking', answer.selections.length, nextProps.users.length)
+                receivedSelections = false;
             };
         });
-        this.props.history.push('/results');
+        if (receivedSelections===true) {
+            console.log('going to results');
+            this.props.history.push('/results');
+        }
     }
 
     // submitAnswer(answer) {
@@ -200,7 +205,9 @@ class Selections extends React.Component {
         });
     }
 
-    submitSelections() {
+    submitSelections(e) {
+
+        e.preventDefault();
 
         const selections = {};
         const self = this;
@@ -213,6 +220,8 @@ class Selections extends React.Component {
             });
         })
         console.log('submitted selections', selections);
+
+        e.target.disabled = true;
 
         this.props.addSelections(selections, this.props.user, this.props.game._id)
     }

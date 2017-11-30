@@ -115,7 +115,8 @@ module.exports = (server) => {
                         if (action.data.selections[answer._id]) {
                             console.log('um', action.data.selections[answer._id])
                             let user_s = game.users.find((user)=>user.name==action.data.selections[answer._id])
-                            let isCorrect = (user_g._id===user_s._id);
+                            let isCorrect = (user_s._id.toString()===answer.user.toString());
+                            console.log('users', user_g, user_s, answer.user, isCorrect)
                             answer.selections.push({guessing_user: user_g._id, suspected_user: user_s._id, correct: isCorrect});
                         }
                     })
