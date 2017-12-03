@@ -105,6 +105,14 @@ export const addSelections = (selections, user, gameId) => {
     }
 };
 
+export const nextTopic = (gameId) => {
+    console.log('nextTopic', gameId);
+    return {
+        type: "server/next-topic",
+        data: gameId
+    }
+};
+
 export const endOfRound = (gameId, currentPoints) => {
     console.log('endofRound', currentPoints, gameId);
     return {

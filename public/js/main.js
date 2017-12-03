@@ -15,10 +15,14 @@ import GameRoom from './Components/GameRoom';
 import Game from './Components/Game';
 import Selections from './Components/Selections';
 import AnswerReveal from './Components/AnswerReveal';
+import EndGame from './Components/EndGame';
 let socketIoMiddleware = createSocketIoMiddleware(socket, "server/");
 
 document.title = 'Hunch';
 
+// let preloaded = localStorage.getItem('state') ? JSON.parse(localStorage.getItem('state')) : undefined;
+
+// console.log('preloaded?', preloaded);
 const store = createStore(rootReducer, applyMiddleware(socketIoMiddleware, thunk));
 
 // socket(store);
@@ -38,6 +42,7 @@ ReactDOM.render(
             <Route path='/game' component={ Game }/>
             <Route path='/selections' component={ Selections }/>
             <Route path='/results' component={ AnswerReveal }/>
+            <Route path='/end-game' component={ EndGame }/>
         </Switch>
         </div>
       </div>
@@ -45,3 +50,9 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('app')
 );
+
+store.subscribe(()=>{
+    const state = store.getState();
+    localStorage.setItem('state', JSON.stringify(state));
+})
+

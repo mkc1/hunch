@@ -53,7 +53,9 @@ class Game extends React.Component {
         })
 
         if (data.length<1) {
-            this.props.history.push('/selections');
+            this.props.history.push('/selections', {state: {
+                                user: this.props.user
+                            }});
         }
 
         this.setState({unansweredUsers: [].concat(data)}, ()=>{
@@ -91,13 +93,14 @@ class Game extends React.Component {
     }
 
     submitAnswer(answer) {
-        let username = this.props.location.state.user;
+        // let username = this.props.location.state.user;
+        let username = this.props.user
         this.props.addAnswer(answer, username, this.props.game._id);
         this.setState({submitted: true});
     }
 
     render() {
-        const username = this.props.location.state.user;
+        const username = this.props.user;
         console.log('props from game', this.props);
         return(
                 <div className='panel'>
@@ -126,7 +129,8 @@ function mapStateToProps(state) {
     return {
         game: state.game,
         users: state.game.users,
-        answers: state.game.answers
+        answers: state.game.answers,
+        user: state.user
     }
 };
 

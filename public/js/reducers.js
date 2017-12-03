@@ -28,7 +28,7 @@ const rootReducer = function(state=initialState, action) {
             // newState = Object.assign({}, state, {currentPlayers: action.data});
             return newState;
         case 'new-game' || 'add-answer':
-            console.log('new game', action.data);
+            console.log('new ga!!!!!!!!!!!!!!me', action.data);
             newState = Object.assign({}, state, {game: action.data});
             // newState = Object.assign({}, state, {currentPlayers: action.data});
             return newState;

@@ -116,6 +116,12 @@ module.exports = (server) => {
                             console.log('um', action.data.selections[answer._id])
                             let user_s = game.users.find((user)=>user.name==action.data.selections[answer._id])
                             let isCorrect = (user_s._id.toString()===answer.user.toString());
+                            if (isCorrect) {
+                                console.log('were in iscorrect', user_g, user_g.points)
+                                user_g.points = user_g.points + 1;
+                                user_g.save();
+                                console.log('pointsadded???', user_g.points)
+                            }
                             console.log('users', user_g, user_s, answer.user, isCorrect)
                             answer.selections.push({guessing_user: user_g._id, suspected_user: user_s._id, correct: isCorrect});
                         }
@@ -124,31 +130,79 @@ module.exports = (server) => {
                     return game.save();
                 })
                 .then(savedGame => {
-                    console.log('game?!:', savedGame.answers)
+                    console.log('game?!:', savedGame.answers);
+                    console.log('users saved', savedGame.users);
                     io.to(gameCode).emit('action', {type: 'new-game', data: savedGame});
                 })
                 .catch(error =>{
                     console.log('error', error);
                 })
-            } else if (action.type === 'server/end-of-round') {
+            } 
 
-                Game.findById(action.data.gameId)
+            // else if (action.type === 'server/end-of-round') {
+
+            //     Game.findById(action.data.gameId)
+            //     .then(game =>{
+            //         console.log('game', game);
+
+            //         game.users.forEach(user =>{
+            //             if (action.data.currentPoints[user.name]) {
+            //                 user.points = action.data.currentPoints[user._id]++;
+            //             }
+            //         })
+            //         game.answers.forEach(answer =>{
+            //             game.answers.pull(answer._id);
+            //         })
+            //         game.round = game.round++;
+            //         return game.save();
+            //     })
+            //     .then(savedGame => {
+            //         console.log('game?!:', savedGame.round, savedGame.answers)
+            //         io.to(gameCode).emit('action', {type: 'new-game', data: savedGame});
+            //     })
+            //     .catch(error =>{
+            //         console.log('error', error);
+            //     })
+            // } 
+            else if (action.type === 'server/next-topic') {
+
+                Game.findById(action.data)
+                .populate('users')
+                .populate('topics')
                 .then(game =>{
-                    console.log('game', game);
+                    console.log('gameNEXTOPIC', game.users);
 
-                    game.users.forEach(user =>{
-                        if (action.data.currentPoints[user.name]) {
-                            user.points = action.data.currentPoints[user._id]++;
-                        }
-                    })
-                    game.answers.forEach(answer =>{
-                        game.answers.pull(answer._id);
-                    })
-                    game.round = game.round++;
+                    game.round = game.round+1;
+
+                    game.answers = [];
+
                     return game.save();
                 })
                 .then(savedGame => {
-                    console.log('game?!:', savedGame.round, savedGame.answers)
+                    console.log('game?SAVED!:', savedGame.round, savedGame.answers, savedGame.users)
+                    io.to(gameCode).emit('action', {type: 'new-game', data: savedGame});
+                })
+                .catch(error =>{
+                    console.log('error', error);
+                })
+            }
+
+            else if (action.type === 'server/end-game') {
+
+                Game.findById(action.data)
+                .populate('users')
+                .populate('topics')
+                .then(game =>{
+                    console.log('end game', game.users);
+                    let winningUser = null;
+                    game.users.forEach(()=>{
+                        if (!winningUser) return user;
+                        if (winningUser.points<user.points) return user;
+                    })
+                    console.log('this user won with this many points', user.name, user.points)
+                })
+                .then(savedGame => {
+                    console.log('game?SAVED!:', savedGame.round, savedGame.answers, savedGame.users)
                     io.to(gameCode).emit('action', {type: 'new-game', data: savedGame});
                 })
                 .catch(error =>{

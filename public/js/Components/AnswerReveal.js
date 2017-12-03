@@ -3,6 +3,7 @@ import { Redirect, Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import { endOfGame, nextTopic } from './../actions';
 
 class AnswerReveal extends React.Component {
     constructor(props) {
@@ -17,6 +18,8 @@ class AnswerReveal extends React.Component {
         this.showSelections = this.showSelections.bind(this);
         this.showAnswers = this.showAnswers.bind(this);
         this.nextAnswer = this.nextAnswer.bind(this);
+        this.nextTopic = this.nextTopic.bind(this);
+        this.testing = this.testing.bind(this);
     }
 
     showSelections(){
@@ -37,7 +40,7 @@ class AnswerReveal extends React.Component {
             let points = selection.correct ? 1 : 0;
 
             return(
-                <div>
+                <div style={{padding: '10px'}}>
                     <div>guesser: {guesser}</div>
                     <div>user: {user}</div>
                     <div>correct: {selection.correct.toString()}</div>
@@ -80,6 +83,7 @@ class AnswerReveal extends React.Component {
             console.log('it updated', this.state.currentPoints);
             let nextAnswer = this.state.currentAnswer + 1;
             if (nextAnswer>this.props.game.answers.length-1) {
+                console.log('now we shoudl be calling next')
                 this.nextTopic();
                 return;
             }
@@ -92,10 +96,17 @@ class AnswerReveal extends React.Component {
     nextTopic() {
         console.log('next topic');
         if (this.props.game.round===this.props.game.topics.length) {
-            this.props.endOfRound(this.props.game._id, this.state.currentPoints);
+            console.log('end of game', this.state.currentPoints);
+            this.props.history.push('/end-game');
         } else {
-            this.props.endOfRound(this.props.game._id, this.state.currentPoints);
+            this.props.nextTopic(this.props.game._id);
+            this.props.history.push('/game');
         }
+    }
+
+    testing() {
+        console.log('testing');
+        this.props.history.push('/game');
     }
 
     render() {
@@ -121,7 +132,7 @@ function mapStateToProps(state) {
 };
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({}, dispatch);
+    return bindActionCreators({endOfGame, nextTopic}, dispatch);
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AnswerReveal));
