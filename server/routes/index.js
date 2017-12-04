@@ -109,5 +109,34 @@ module.exports = function(io) {
         })
     });
 
+    router.post('/end-of-round', (req, res, next) => {
+
+        console.log('made it to game!!!! selections', req.body)
+
+        return Game.findById(req.body.gameId)
+        .then(game =>{
+            console.log('game', game);
+
+            game.users.forEach(user =>{
+                if (req.body.currentPoints[user.name]) {
+                    user.points = req.body.currentPoints[user._id]++;
+                }
+            })
+            game.answers.forEach(answer =>{
+                game.answers.pull(answer._id);
+            })
+            game.round = game.round++;
+            return game.save();
+        })
+        .then(savedGame => {
+            console.log('game?!:', savedGame.round, savedGame.answers)
+            io.to(gameCode).emit('action', {type: 'new-game', data: savedGame});
+        })
+        .catch(error =>{
+            console.log('error', error);
+        })
+
+    })
+
     return router;
 }

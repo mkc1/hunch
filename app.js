@@ -20,7 +20,7 @@ app.use('/', router);
 const PORT = config.port;
 
 server.listen(PORT, ()=>{
-  console.log('Example app listening on port ' + PORT + ' !');
+  console.log('Listening on port ' + PORT + ' !');
 });
 
 module.exports = app;

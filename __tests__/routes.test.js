@@ -171,44 +171,94 @@ describe('testing answers', () => {
             });
         });
 
-        test('isCorrect method', (done) => {
+        // test('isCorrect method', (done) => {
 
-            console.log('ids', user1, user2)
+        //     console.log('ids', user1, user2)
 
-            let testSelections = [
-                {guessing_user: user1,
-                suspected_user: user3}, //incorrect
-                {guessing_user: user2,
-                suspected_user: user2}, //correct
-                {guessing_user: user3,
-                suspected_user: user2}  //correct
-            ];
+        //     let testSelections = [
+        //         {guessing_user: user1,
+        //         suspected_user: user3}, //incorrect
+        //         {guessing_user: user2,
+        //         suspected_user: user2}, //correct
+        //         {guessing_user: user3,
+        //         suspected_user: user2}  //correct
+        //     ];
 
-            testSelections.forEach(selection =>{
-                game1.answers[0].selections.push(selection)
+        //     testSelections.forEach(selection =>{
+        //         game1.answers[0].selections.push(selection)
+        //     })
+
+        //     console.log('game1id', game1._id)
+        //     return game1.save()
+        //     .then(function(game){
+        //         console.log('gameid', game._id)
+        //         game.answers[0].selections.forEach(selection =>{
+        //             selection.checkCorrectSelections(game1.answers[0].user)
+        //         })
+        //         return game.save();
+        //     })
+        //     .then(function(game){
+        //         console.log('done?', game.answers[0])
+        //         done();
+        //     })
+        //     .catch(function(error){
+        //         console.log(error)
+        //         throw error
+        //     })
+
+        //     // console.log('methods', game1.answers[0].selections)
+
+        //     // done()
+            
+        // });
+
+        test('endofgame', (done) => {
+
+            return request.post('/end-of-game')
+            .send({
+                selections: [{
+                    answer: answer1._id,
+                    selection: {
+                        guessing_user: user1,
+                        suspected_user: user2
+                    }},
+                    {
+                    answer: answer3._id,
+                    selection: {
+                        guessing_user: user1,
+                        suspected_user: user3
+                    }}
+                ],
+                game: game1._id
             })
+            .then(response => {
+                expect(response.statusCode).toBe(201);
 
-            console.log('game1id', game1._id)
-            return game1.save()
-            .then(function(game){
-                console.log('gameid', game._id)
-                game.answers[0].selections.forEach(selection =>{
-                    selection.checkCorrectSelections(game1.answers[0].user)
+                response.body.answers.forEach(answer=> {
+                    console.log('1st selections', answer.selections)
                 })
-                return game.save();
+
+                return request.post('/game/selections')
+                .send({
+                    user: user1._id
+                    selections: {answr: uspecetuser, awrs, }
+                    game: game1._id
+                })
             })
-            .then(function(game){
-                console.log('done?', game.answers[0])
+            .then(response => {
+                expect(response.statusCode).toBe(201);
+
+                // user3 did not send in any selections.
+                // user3's answer selections should be the
+                // only selections with a length of 2
+                let answer1selections = response.body.answers[0].selections;
+                let answer2selections = response.body.answers[1].selections;
+                let answer3selections = response.body.answers[2].selections;
+                expect(answer1selections.length).toBe(1);
+                expect(answer2selections.length).toBe(1);
+                expect(answer3selections.length).toBe(2);
                 done();
-            })
-            .catch(function(error){
-                console.log(error)
-                throw error
-            })
-
-            // console.log('methods', game1.answers[0].selections)
-
-            // done()
+            });
             
         });
 

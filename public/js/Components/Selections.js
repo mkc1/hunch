@@ -26,12 +26,17 @@ class Selections extends React.Component {
     }
 
     componentWillReceiveProps(nextProps){
+        let receivedSelections = true;
         nextProps.answers.forEach(answer=> {
             if (answer.selections.length!==nextProps.users.length) {
-                return;
+                console.log('checking', answer.selections.length, nextProps.users.length)
+                receivedSelections = false;
             };
         });
-        this.props.history.push('/results');
+        if (receivedSelections===true) {
+            console.log('going to results');
+            this.props.history.push('/results');
+        }
     }
 
     // submitAnswer(answer) {
@@ -73,7 +78,7 @@ class Selections extends React.Component {
 
     showUsers() {
         let self = this;
-        return this.props.users.map(function(user){
+        return this.state.users.map(function(user){
             return (
                 <div
                     key={user.name}
@@ -89,7 +94,7 @@ class Selections extends React.Component {
     showAnswers() {
         let self = this;
         let display;
-        return this.props.answers.map(function(answer){
+        return this.state.answers.map(function(answer){
             let selection = self.state.selections.find((element)=>element[answer.answer]) || null;
             if (selection) display = selection[answer.answer];
             else display = "";
@@ -200,7 +205,9 @@ class Selections extends React.Component {
         });
     }
 
-    submitSelections() {
+    submitSelections(e) {
+
+        e.preventDefault();
 
         const selections = {};
         const self = this;
@@ -213,6 +220,8 @@ class Selections extends React.Component {
             });
         })
         console.log('submitted selections', selections);
+
+        e.target.disabled = true;
 
         this.props.addSelections(selections, this.props.user, this.props.game._id)
     }
@@ -238,10 +247,10 @@ function mapStateToProps(state) {
     console.log('state also', state);
     console.log('game??pls', state.game);
     return {
-        game: state.game,
-        answers: state.game.answers,
-        users: state.game.users,
-        user: state.user
+        // game: state.game,
+        // answers: state.game.answers,
+        // users: state.game.users,
+        // user: state.user
     }
 };
 

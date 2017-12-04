@@ -1,6 +1,6 @@
 'use strict';
 
-console.log('running the test config');
+console.log('test config');
 
 module.exports = {
     env: 'test',
