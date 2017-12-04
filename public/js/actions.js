@@ -23,6 +23,7 @@ export const connectSocket = (data) => {
 };
 
 export const addGame = (users) => {
+    console.log('starting game', users)
     return {
         type: "server/add-game",
         data: users
@@ -30,6 +31,7 @@ export const addGame = (users) => {
 };
 
 export const addAnswer = (answer, user, gameId) => {
+    console.log('adding answer')
     return {
         type: 'server/add-answer',
         data: {answer: answer, user: user, gameId: gameId}

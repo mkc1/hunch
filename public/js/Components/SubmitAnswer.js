@@ -14,19 +14,19 @@ class SubmitAnswer extends React.Component {
             unansweredUsers: [],
             submitted: false
         };
-        
+
         this.showTopic = this.showTopic.bind(this);
         this.submitAnswer = this.submitAnswer.bind(this);
         this.showUnansweredUsers = this.showUnansweredUsers.bind(this);
     }
 
-    // componentWillMount() {
-    //     let unansweredUsers = this.props.users.map(user =>{
-    //         return {id: user._id, name: user.name};
-    //     });
+    componentWillMount() {
+        let unansweredUsers = this.props.users.map(user =>{
+            return {id: user._id, name: user.name};
+        });
 
-    //     this.setState({unansweredUsers: [].concat(unansweredUsers)};
-    // }
+        this.setState({unansweredUsers: [].concat(unansweredUsers)});
+    }
 
     componentWillReceiveProps(nextProps) {
         let data = [];
@@ -35,6 +35,8 @@ class SubmitAnswer extends React.Component {
         let answeredUsers = nextProps.answers.map(answer=> {
             return answer.user;
         });
+
+        console.log('answered')
 
         // find the users that haven't submitted an answer
         nextProps.users.forEach(user=> {
@@ -92,6 +94,7 @@ class SubmitAnswer extends React.Component {
 }
 
 function mapStateToProps(state) {
+    console.log('state', state);
     return {
         game: state.game,
         users: state.game.users,

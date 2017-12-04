@@ -19,6 +19,7 @@ class GameRoom extends React.Component {
     }
 
     startGame() {
+        console.log('game')
         const users = this.props.currentPlayers.map(user=>{
             return { name: user };
         });
@@ -44,6 +45,7 @@ class GameRoom extends React.Component {
     render() {
         const isFirstPlayer = this.props.location.state.first;
         
+        console.log('hey')
         return(
             <div>
                 <div className='panel left-panel'>
@@ -80,6 +82,7 @@ class GameRoom extends React.Component {
 };
 
 function mapStateToProps(state) {
+    console.log('state update?');
     return {
         username: state.username,
         gamecode: state.gamecode,

@@ -33,7 +33,7 @@ module.exports = (server) => {
                     };
                 };
 
-                io.to(gameCode).emit('action', {type: 'joined', data: players});
+                io.to(gameCode).emit('action', {type: 'JOINED-GAME', data: players});
 
             } else if (action.type === 'server/add-game') {
 
@@ -61,7 +61,7 @@ module.exports = (server) => {
                 })
                 .then(savedGame => {
                     console.log('saved game:', savedGame)
-                    io.to(gameCode).emit('action', {type: 'new-game', data: savedGame});
+                    io.to(gameCode).emit('action', {type: 'NEW-GAME', data: savedGame});
                 })
                 .catch(error =>{
                     console.log('error', error);
@@ -135,7 +135,7 @@ module.exports = (server) => {
                 })
                 .then(savedGame => {
                     console.log('game?SAVED!:', savedGame.round, savedGame.answers, savedGame.users)
-                    io.to(gameCode).emit('action', {type: 'new-game', data: savedGame});
+                    io.to(gameCode).emit('action', {type: 'UPDATED-GAME', data: savedGame});
                 })
                 .catch(error =>{
                     console.log('error', error);

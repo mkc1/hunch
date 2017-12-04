@@ -78,7 +78,7 @@ class Selections extends React.Component {
 
     showUsers() {
         let self = this;
-        return this.props.users.map(function(user){
+        return this.state.users.map(function(user){
             return (
                 <div
                     key={user.name}
@@ -94,7 +94,7 @@ class Selections extends React.Component {
     showAnswers() {
         let self = this;
         let display;
-        return this.props.answers.map(function(answer){
+        return this.state.answers.map(function(answer){
             let selection = self.state.selections.find((element)=>element[answer.answer]) || null;
             if (selection) display = selection[answer.answer];
             else display = "";
@@ -247,10 +247,10 @@ function mapStateToProps(state) {
     console.log('state also', state);
     console.log('game??pls', state.game);
     return {
-        game: state.game,
-        answers: state.game.answers,
-        users: state.game.users,
-        user: state.user
+        // game: state.game,
+        // answers: state.game.answers,
+        // users: state.game.users,
+        // user: state.user
     }
 };
 

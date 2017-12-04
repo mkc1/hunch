@@ -21,13 +21,13 @@ const rootReducer = function(state=initialState, action) {
         case ADD_ANSWER:
             console.log('adding an answer', action.payload)
             newState = Object.assign({}, state, {answer: action.payload});
-        case 'joined':
+        case 'JOINED-GAME':
             console.log('a test', action.data);
             newState = { currentPlayers: [].concat(action.data) }
             return Object.assign({}, state, newState);
             // newState = Object.assign({}, state, {currentPlayers: action.data});
             return newState;
-        case 'new-game' || 'add-answer':
+        case 'NEW-GAME':
             console.log('new ga!!!!!!!!!!!!!!me', action.data);
             newState = Object.assign({}, state, {game: action.data});
             // newState = Object.assign({}, state, {currentPlayers: action.data});
