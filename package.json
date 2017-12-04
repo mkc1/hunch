@@ -2,7 +2,7 @@
   "name": "hunch",
   "version": "1.0.0",
   "description": "who said it??",
-  "main": "index.js",
+  "main": "app.js",
   "jest": {
     "verbose": true,
     "modulePathIgnorePatterns": [
