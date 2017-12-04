@@ -42,12 +42,8 @@ class GameRoom extends React.Component {
     }
 
     render() {
-        let self = this;
-        const isFirstPlayer = this.props.location.state ? this.props.location.state :
-            (function() {
-                return self.props.currentPlayers.length<2
-            })();
-            
+        const isFirstPlayer = this.props.location.state.first;
+        
         return(
             <div>
                 <div className='panel left-panel'>

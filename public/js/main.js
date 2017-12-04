@@ -10,7 +10,7 @@ import rootReducer from './reducers';
 import css from './../style.css';
 import Application from './Application';
 import GameRoom from './Components/GameRoom';
-import Game from './Components/Game';
+import SubmitAnswer from './Components/SubmitAnswer';
 import Selections from './Components/Selections';
 import AnswerReveal from './Components/AnswerReveal';
 import EndGame from './Components/EndGame';
@@ -36,7 +36,7 @@ ReactDOM.render(
           <Switch>
             <Route exact path='/' component={ Application }/>
             <Route path='/start-game' component={ GameRoom }/>
-            <Route path='/game' component={ Game }/>
+            <Route path='/game' component={ SubmitAnswer }/>
             <Route path='/selections' component={ Selections }/>
             <Route path='/results' component={ AnswerReveal }/>
             <Route path='/end-game' component={ EndGame }/>
