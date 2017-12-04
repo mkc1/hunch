@@ -13,13 +13,13 @@
     "node": "4.3.2"
   },
   "scripts": {
-    "build": "webpack --config webpack.config.js",
+    "build": "npm install --dev webpack --config webpack.config.js",
     "build-watch": "webpack --watch",
     "start-watch": "nodemon app.js",
     "dev": "NODE_ENV=dev npm run build-watch & npm run start-watch",
     "start": "node app.js",
     "test": "NODE_ENV=test jest",
-    "heroku-postbuild": "webpack -p --config webpack.config.js --progress"
+    "heroku-postbuild": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
