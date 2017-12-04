@@ -9,6 +9,9 @@
       "<rootDir>/config/"
     ]
   },
+  "engines": {
+    "node": "4.3.2"
+  },
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "build-watch": "webpack --watch",
