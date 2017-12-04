@@ -1,13 +1,16 @@
 import axios from 'axios';
-import { normalize } from 'normalizr';
-import { gameSchema } from './api';
-// import socket from './socket.js';
 
 export const addUsername = (username) => {
-    console.log("you're trying to add a username", username);
     return {
         type: "ADD_USERNAME",
         payload: username
+    }
+};
+
+export const addGameCode = (code) => {
+    return {
+        type: "ADD_GAMECODE",
+        payload: code
     }
 };
 

@@ -1,26 +1,23 @@
 import React from 'react';
 import Form from './Components/Form';
 import ChooseGame from './Components/ChooseGame';
-import { Redirect, Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addUsername } from './actions';
 
+
 class Application extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
-        console.log('application', this.props.history);
-
         return(
             <div>
-                <div>
-                    <h2>Welcome{this.props.user ? ` ${this.props.user}` : ''}!</h2>
+                <div className='welcome-message'>
+                    {(this.props.username) &&
+                        (<h2>Welcome {this.props.username ? ` ${this.props.username}` : ''}!</h2>)
+                    }
                 </div>
                 <div>
-                    {(!this.props.user) ? 
+                    {(!this.props.username) ? 
                         <div className='panel'><Form formLabel='Please enter your name:' liftData={
                             (name)=>this.props.addUsername(name)
                         } /></div>
@@ -29,19 +26,18 @@ class Application extends React.Component {
                     }
                 </div>
             </div>
-        )
-    };
-}
-
-function mapStateToProps(state) {
-    console.log('ze state', state)
-    return {
-        user: state.user
+        );
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        username: state.username
+    };
+}
+
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ addUsername }, dispatch)
+    return bindActionCreators({ addUsername }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Application);

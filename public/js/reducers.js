@@ -1,18 +1,18 @@
 import { combineReducers } from 'redux';
 
-const ADD_USERNAME = "ADD_USERNAME";
 const ADD_GAME = "ADD_GAME";
 const ADD_ANSWER = "ADD_ANSWER";
 
 let initialState = {currentPlayers: []};
 
 const rootReducer = function(state=initialState, action) {
-    console.log('REDUCER', state, action)
     let newState;
     switch (action.type) {
-        case ADD_USERNAME:
-            console.log('add username', action.payload)
-            newState = Object.assign({}, state, {user: action.payload});
+        case 'ADD_USERNAME':
+            newState = Object.assign({}, state, {username: action.payload});
+            return newState;
+        case 'ADD_GAMECODE':
+            newState = Object.assign({}, state, {gamecode: action.payload});
             return newState;
         case ADD_GAME:
             console.log('adding a game', action.payload)
