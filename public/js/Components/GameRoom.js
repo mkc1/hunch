@@ -10,7 +10,7 @@ class GameRoom extends React.Component {
     constructor(props) {
         super(props);
 
-        this.createGame = this.createGame.bind(this);
+        this.startGame = this.startGame.bind(this);
         this.copyCode = this.copyCode.bind(this);
     }
 
@@ -18,7 +18,7 @@ class GameRoom extends React.Component {
         this.props.connectSocket({ code: this.props.gameCode, name: this.props.username });
     }
 
-    createGame() {
+    startGame() {
         const users = this.props.currentPlayers.map(user=>{
             return { name: user };
         });
@@ -42,8 +42,12 @@ class GameRoom extends React.Component {
     }
 
     render() {
-        const isFirstPlayer = this.props.location.state.first;
-
+        let self = this;
+        const isFirstPlayer = this.props.location.state ? this.props.location.state :
+            (function() {
+                return self.props.currentPlayers.length<2
+            })();
+            
         return(
             <div>
                 <div className='panel left-panel'>
@@ -63,7 +67,7 @@ class GameRoom extends React.Component {
                         <div>
                             <p>You are the first one here!</p>
                             <p>When all other players have joined the game, click 'start'!</p>
-                            <button className='submit-btn' onClick={this.createGame}>Start</button>
+                            <button className='submit-btn' onClick={this.startGame}>Start</button>
                         </div>
                     )}
                     <div>
@@ -80,17 +84,16 @@ class GameRoom extends React.Component {
 };
 
 function mapStateToProps(state) {
-    console.log('state also', state);
     return {
         username: state.username,
         gamecode: state.gamecode,
         currentPlayers: state.currentPlayers,
         game: state.game
-    }
-};
+    };
+}
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ addGame, connectSocket }, dispatch)
-};
+    return bindActionCreators({ addGame, connectSocket }, dispatch);
+}
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(GameRoom));

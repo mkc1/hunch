@@ -43,7 +43,7 @@ class ChooseGame extends React.Component {
                     <div className='panel'>
                         <div className='panel-title'>Start a new game</div>
                         <button className='submit-btn' onClick={
-                            ()=>{this.handleNewGame}}>Start</button>
+                            ()=>{this.handleNewGame()}}>Start</button>
                     </div>
                     <div className='or-div'>or</div>
                     <div className='panel'>
