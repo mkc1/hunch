@@ -27,7 +27,7 @@ class GameRoom extends React.Component {
 
     copyCode() {
         var text = document.createElement("textarea");
-        text.value = this.props.location.state.code;
+        text.value = this.props.gamecode;
         document.body.appendChild(text);
         text.select();
         document.execCommand('copy');
