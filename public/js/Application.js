@@ -17,10 +17,15 @@ class Application extends React.Component {
                     }
                 </div>
                 <div>
-                    {(!this.props.username) ? 
-                        <div className='panel'><Form formLabel='Please enter your name:' liftData={
+                    {(!this.props.username) ?
+                        <div>
+                        <div>
+                            <span>Enter your name to get started</span>
+                        </div>
+                        <Form className='panel' liftData={
                             (name)=>this.props.addUsername(name)
-                        } /></div>
+                        } />
+                        </div>
                     :
                         <ChooseGame username={this.props.user} />
                     }

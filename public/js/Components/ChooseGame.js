@@ -38,20 +38,17 @@ class ChooseGame extends React.Component {
 
     render(){
         return(
-            <div>
-                <div>
-                    <div className='panel'>
-                        <div className='panel-title'>Start a new game</div>
-                        <button className='submit-btn' onClick={
-                            ()=>{this.handleNewGame()}}>Start</button>
-                    </div>
-                    <div className='or-div'>or</div>
-                    <div className='panel'>
-                        <div className='panel-title'>Join an existing game</div>
-                        <Form formLabel='Enter game code' liftData={
-                            (gameCode)=>this.handleJoinGame(gameCode)
-                        } />
-                    </div>
+            <div className='panel-container'>
+                <div className='panel'>
+                    <div className='panel-title'>Start a new game</div>
+                    <button className='submit-btn' onClick={
+                        ()=>{this.handleNewGame()}}>Start</button>
+                </div>
+                <div className='panel'>
+                    <div className='panel-title'>Join an existing game</div>
+                    <Form formLabel='Enter game code' liftData={
+                        (gameCode)=>this.handleJoinGame(gameCode)
+                    } />
                 </div>
             </div>
         );

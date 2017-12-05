@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald');
-@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 @import url('https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed:500" rel="stylesheet');
 
 html {
@@ -8,13 +8,13 @@ html {
 }
 
 body {
-    font-family: 'Lato', sans-serif;
-    font-size: 20px;
-    color: #142f4e;
+    font-family: 'Roboto', sans-serif;
+    font-size: 32px;
+    color: #292F36;
     margin: 0 auto;
 	margin: 0;
     position: relative;
-    background: #fdfdfd;
+    background: #F7FFF7;
 }
 
 .app-container {
@@ -37,8 +37,8 @@ body {
 }
 
 .logo-container {
-	background-color: #e7f5ff;
-	border-bottom: 13px #009DDC solid;
+	background-color: rgba(239, 247, 207, 0.3);
+	border-bottom: 13px rgba(44, 121, 242, 0.8) solid;
     margin-bottom: 20px;
 	/*background: linear-gradient(90deg, #FEFAEC 20%, transparent);*/
 }
@@ -54,12 +54,14 @@ body {
 	display: block;
 	margin: 15px auto;
 	min-height: 25px;
-	font-size: 18px;
+    text-align: center;
+	letter-spacing: 2px;
+    font-size: 22px;
 	font-weight: bold;
-	border: 2px solid #142f4e;
+	border: 2px solid #292F36;
  	border-radius: 7px;
- 	padding: 5px 10px;
- 	color: #142f4e;
+ 	padding: 7px 15px;
+ 	color: #226CE0;
  	-webkit-transition: all 0.30s ease-in-out;
  	-moz-transition: all 0.30s ease-in-out;
  	-ms-transition: all 0.30s ease-in-out;
@@ -68,8 +70,8 @@ body {
 
 .name-input:focus {
 	outline: none;
- 	border-color: #226CE0;
- 	box-shadow: 0 0 10px #226CE0;
+ 	border-color: #F38181;
+ 	box-shadow: 0 0 10px #F38181;
 }
 
 .submit-btn {
@@ -83,7 +85,7 @@ body {
 	color: #FEFAEC;
 	border: none;
 	border-radius: 10px;
-	background-image: linear-gradient(to right, #226CE0 0%, #142f4e 51%, #226CE0 100%);
+	background-image: linear-gradient(to right, #F38181 0%, #226CE0 51%, #F38181 100%);
 }
 
 .submit-btn:hover {
@@ -95,13 +97,16 @@ body {
 }
 
 .panel {
-	padding: 20px 10px;
-	border: 4px #FFFEFA solid;
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px 30px;
+	/*padding: 20px 10px;*/
+	/*border: 4px #FFFEFA solid;*/
 	border-radius: 20px;
-  	max-width: 450px;
-  	margin: 0 auto;
-  	background: #93e1ff;
-  	box-shadow: 0 0 0 6pt #93e1ff;
+  	/*max-width: 450px;
+  	margin: 0 auto;*/
+  	background: rgba(78, 205, 196, 1);
+  	/*box-shadow: 0 0 0 6pt rgba(0, 159, 220, 0.8);*/
 }
 
 .welcome-message {
@@ -114,10 +119,6 @@ body {
 .left-panel {
 	position: absolute;
 	left: 2em;
-}
-
-.or-div {
-	margin: 20px;
 }
 
 .panel-title {
@@ -135,18 +136,18 @@ body {
 
 .name-list-item {
 	padding: 5px;
-	border-top: 1px #142f4e solid;
+	border-top: 1px #d2aeae solid;
 }
 
 .game-code {
 	font-weight: bold;
-	color: #226CE0;
+	color: #F38181;
 	font-size: 20px;
 }
 
 .game-code:hover {
 	cursor: pointer;
-	color: #7897c7;
+	color: #b95e5e;
 }
 
 .copy-code-text {
@@ -181,14 +182,54 @@ body {
 	border-radius: 10px;
 }
 
+.selection-container {
+    margin: 0px auto;
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.user-container {
+    width: 35%;
+}
+
+.answer-container {
+    width: 65%;
+}
+
 .user-box {
+    border-radius: 15px;
+    font-size: 28px;
+    background: #809fff;
+    margin: 20px 15%;
+    min-height: 50px;
+    line-height: 50px;
+    padding: 5px;
+    width: 70%;
+}
+
+.answer-box {
+    border-radius: 15px;
     background: rgba(255, 102, 102, 1);
-    padding: 20px;
+    font-size: 24px;
     margin: 20px;
+    padding: 5px;
+    margin-right: 5%;
+    min-height: 50px;
+}
+
+.matched {
+    background-color: #4ECDC4;
+}
+
+.answer-display {
+}
+
+.user-display {
+    font-size: 16px;
 }
 
 .user-box[draggable="false"] {
-    background: rgba(255, 102, 102, 0.6);
+    background: rgba(128, 160, 255, 0.4);
 }
 
 .topic-title {
