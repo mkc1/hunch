@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const router = require('./server/routes/')(io);
 const config = require('./config/index.js');
+const seed = require('./server/seed');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

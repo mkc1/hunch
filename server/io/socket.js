@@ -37,7 +37,7 @@ module.exports = (server) => {
 
             } else if (action.type === 'server/add-game') {
 
-                Promise.all([User.create(action.data), Topic.find({})])
+                Promise.all([User.create(action.data), Topic.getFiveRandomTopics()])
                 .then(result =>{
                     var newGame = new Game({ users: result[0], topics: result[1] });
                     return newGame.save();

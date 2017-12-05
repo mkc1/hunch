@@ -74,10 +74,9 @@ class SubmitAnswer extends React.Component {
         const username = this.props.user;
         return(
             <div className='panel'>
-                <div>Round:
-                    {this.props.game.round}
+                <div>Round {this.props.game.round}
                 </div>
-                <div>Topic:
+                <div className='topic'>
                     {this.showTopic()}
                 </div>
                 <div>Waiting on:

@@ -1,38 +1,39 @@
 import React from 'react';
-import Form from './Components/Form';
-import ChooseGame from './Components/ChooseGame';
-import { bindActionCreators } from 'redux';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addUsername } from './actions';
+import Home from './Components/Home';
+import GameRoom from './Components/GameRoom';
+import SubmitAnswer from './Components/SubmitAnswer';
+import Selections from './Components/Selections';
+import AnswerReveal from './Components/AnswerReveal';
+import EndGame from './Components/EndGame';
 
 
-class Application extends React.Component {
-
-    render() {
-        return(
-            <div>
-                <div className='welcome-message'>
-                    {(this.props.username) &&
-                        (<h2>Welcome {this.props.username ? ` ${this.props.username}` : ''}!</h2>)
-                    }
-                </div>
-                <div>
-                    {(!this.props.username) ?
-                        <div>
-                        <div>
-                            <span>Enter your name to get started</span>
-                        </div>
-                        <Form className='panel' liftData={
-                            (name)=>this.props.addUsername(name)
-                        } />
-                        </div>
-                    :
-                        <ChooseGame username={this.props.user} />
+function Application(props){
+    return(
+        <Router>
+          <div className='app-container'>
+            <div className='logo-container'>
+                <div className='logo'>HUNCH</div>
+                <div className='right-side'>
+                    {(props.username) &&
+                        <div className='welcome-message'>welcome {props.username}!</div>
                     }
                 </div>
             </div>
-        );
-    }
+            <div className="main-container">
+              <Switch>
+                <Route exact path='/' component={ Home }/>
+                <Route path='/start-game' component={ GameRoom }/>
+                <Route path='/game' component={ SubmitAnswer }/>
+                <Route path='/selections' component={ Selections }/>
+                <Route path='/results' component={ AnswerReveal }/>
+                <Route path='/end-game' component={ EndGame }/>
+            </Switch>
+            </div>
+          </div>
+        </Router>
+    );
 }
 
 function mapStateToProps(state) {
@@ -41,8 +42,4 @@ function mapStateToProps(state) {
     };
 }
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ addUsername }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Application);
+export default connect(mapStateToProps)(Application);

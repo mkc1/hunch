@@ -25,6 +25,35 @@ const TopicSchema = new Schema({
     }
 })
 
+// topic schema methods
+// TopicSchema.statics.getFiveRandomTopics = function(cb) {
+//     console.log('trying@@@!!!!!')
+//     var random;
+//     var usedIndexes = [];
+//     var topics = [];
+
+//     return Topic.count({}, function(count){
+//         console.log('count', count)
+//         return count;
+//     })
+//     .then(function(count){
+//         for (var i=0; i<5;i++) {
+//             random = Math.floor(Math.random() * count);
+//             while (usedIndexes.find(random)===true) {
+//                 random = Math.floor(Math.random() * count);
+//             }
+//             this.findOne().skip(random).exec(
+//                 function (err, result) {
+//                     console.log('random topic', result);
+//                     usedIndexes.push(random);
+//                     topics.push(result);
+//                 }
+//             )
+//         }
+//         return topics;
+//     })
+// };
+
 const SelectionSchema = new Schema({
     guessing_user: {
         type: Schema.Types.ObjectId,
@@ -61,17 +90,27 @@ const GameSchema = new Schema({
 })
 
 
-// methods
+// topic schema methods
+TopicSchema.statics.getFiveRandomTopics = function(cb) {
+    var random = undefined;
+    var usedIndexes = [];
+    var list = [];
 
-// SelectionSchema.methods.createSelections = function(preSelections, user, answers) {
-//     if (this.suspected_user.toString()===answerId.toString()) {
-//         console.log('this selection is correct', this.suspected_user, answerId);
-//         this.correct = true;
-//     } else {
-//         console.log('this selection is incorrect', this.suspected_user, answerId)
-//         this.correct = false;
-//     }
-// }
+    return Topic.find({}, function(err, topics){
+       return topics;
+    })
+    .then(function(topics){
+        for (var i=0; i<5;i++) {
+            random = Math.floor(Math.random() * topics.length);
+            while (usedIndexes.indexOf(random)>-1){
+                random = Math.floor(Math.random() * topics.length);
+            };
+            list.push(topics[random]);
+            usedIndexes.push(random);
+        }
+        return list;
+    })
+};
 
 const Game = mongoose.model('Game', GameSchema);
 const User = mongoose.model('User', UserSchema);

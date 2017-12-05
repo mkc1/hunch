@@ -116,12 +116,12 @@ class Selections extends React.Component {
             selection[String(answer.text)] = user.name;
             newSelections = this.state.selections.concat([selection]);
         } else {
-            // console.log('it exists');
-            // let updatedSelection = update(existingSelection, {[answer.text]: {$set: user.name}});
+            console.log('it exists');
+            let updatedSelection = update(existingSelection, {[answer.text]: {$set: user.name}});
 
-            // newSelections = update(this.state.selections, {
-            //     $splice: [[this.state.selections.indexOf(existingSelection), 1, updatedSelection]]
-            // })
+            newSelections = update(this.state.selections, {
+                $splice: [[this.state.selections.indexOf(existingSelection), 1, updatedSelection]]
+            })
 
         }
         this.setState({selections: newSelections}, function(){
@@ -184,10 +184,10 @@ class Selections extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        game: state.game,
-        answers: state.game.answers,
-        users: state.game.users,
-        user: state.user
+        // game: state.game,
+        // answers: state.game.answers,
+        // users: state.game.users,
+        // user: state.user
     }
 };
 

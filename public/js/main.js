@@ -9,11 +9,11 @@ import createSocketIoMiddleware from 'redux-socket.io';
 import rootReducer from './reducers';
 import css from './../style.css';
 import Application from './Application';
-import GameRoom from './Components/GameRoom';
-import SubmitAnswer from './Components/SubmitAnswer';
-import Selections from './Components/Selections';
-import AnswerReveal from './Components/AnswerReveal';
-import EndGame from './Components/EndGame';
+// import GameRoom from './Components/GameRoom';
+// import SubmitAnswer from './Components/SubmitAnswer';
+// import Selections from './Components/Selections';
+// import AnswerReveal from './Components/AnswerReveal';
+// import EndGame from './Components/EndGame';
 
 let socket = io();
 let socketIoMiddleware = createSocketIoMiddleware(socket, "server/");
@@ -27,23 +27,7 @@ const store = createStore(rootReducer, applyMiddleware(socketIoMiddleware, thunk
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
-      <div className='app-container'>
-        <div className='logo-container'>
-            <h2 className='logo'>HUNCH</h2>
-        </div>
-        <div className="main-container">
-          <Switch>
-            <Route exact path='/' component={ Application }/>
-            <Route path='/start-game' component={ GameRoom }/>
-            <Route path='/game' component={ SubmitAnswer }/>
-            <Route path='/selections' component={ Selections }/>
-            <Route path='/results' component={ AnswerReveal }/>
-            <Route path='/end-game' component={ EndGame }/>
-        </Switch>
-        </div>
-      </div>
-    </Router>
+    <Application />
   </Provider>,
   document.getElementById('app')
 );
