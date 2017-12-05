@@ -1,6 +1,6 @@
 # HUNCH
 
-** Hunch is a 'who-said-what' multi-player guessing game. **
+**Hunch is a 'who-said-what' multi-player guessing game.**
 
 Given a random selection of topics, each user will submit their response.
 

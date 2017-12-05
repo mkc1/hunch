@@ -82,9 +82,9 @@ class Selections extends React.Component {
         let user_display;
         return this.state.answers.map(function(answer){
             console.log('answer?', answer.text);
-            let selection = self.state.selections.find((element)=>element[answer.text]) || null;
+            let selection = self.state.selections.find((element)=>element[answer.answer]) || null;
             // if it's been matched, show the suspected user below the answer
-            if (selection) user_display = selection[answer.text];
+            if (selection) user_display = selection[answer.answer];
             else user_display = "";
             return (
                 <div className='answer-box'>
@@ -184,10 +184,10 @@ class Selections extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        // game: state.game,
-        // answers: state.game.answers,
-        // users: state.game.users,
-        // user: state.user
+        game: state.game,
+        answers: state.game.answers,
+        users: state.game.users,
+        user: state.user
     }
 };
 
