@@ -20,7 +20,7 @@ let socketIoMiddleware = createSocketIoMiddleware(socket, "server/");
 
 document.title = 'Hunch';
 
-// let preloaded = localStorage.getItem('state') ? JSON.parse(localStorage.getItem('state')) : undefined;
+let preloaded = localStorage.getItem('state') ? JSON.parse(localStorage.getItem('state')) : undefined;
 
 const store = createStore(rootReducer, applyMiddleware(socketIoMiddleware, thunk));
 
@@ -32,7 +32,7 @@ ReactDOM.render(
   document.getElementById('app')
 );
 
-// store.subscribe(()=>{
-//     const state = store.getState();
-//     localStorage.setItem('state', JSON.stringify(state));
-// });
+store.subscribe(()=>{
+    const state = store.getState();
+    localStorage.setItem('state', JSON.stringify(state));
+});

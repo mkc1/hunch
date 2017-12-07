@@ -36,8 +36,6 @@ class SubmitAnswer extends React.Component {
             return answer.user;
         });
 
-        console.log('answered')
-
         // find the users that haven't submitted an answer
         nextProps.users.forEach(user=> {
             if (answeredUsers.indexOf(user._id)===-1) {
@@ -60,7 +58,7 @@ class SubmitAnswer extends React.Component {
 
     showUnansweredUsers() {
         return this.state.unansweredUsers.map(user=> {
-            return user.name;
+            return (<li className='user-list-item'>{user.name}</li>);
         });
     }
 
@@ -73,27 +71,32 @@ class SubmitAnswer extends React.Component {
     render() {
         const username = this.props.user;
         return(
-            <div className='panel'>
-                <div>Round {this.props.game.round}
+            <div className='panel' id='answer-panel'>
+                <div className='panel-header'>
+                    <div id='round-container'>
+                        Round {this.props.game.round}
+                    </div>
+                    <div id='waiting-on-container'>
+                        <label>waiting on:</label>
+                        <ul className='user-list'>
+                            {this.showUnansweredUsers()}
+                        </ul>
+                    </div>
                 </div>
                 <div className='topic'>
                     {this.showTopic()}
                 </div>
-                <div>Waiting on:
-                    {this.showUnansweredUsers()}
-                </div>
-                {(this.state.submitted) ?
-                    (<div>Thanks for submitting!</div>)
-                    :
-                    (<Form liftData={this.submitAnswer}/>)
-                }
+            {(this.state.submitted) ?
+                (<div>Thanks for submitting!</div>)
+                :
+                (<Form liftData={this.submitAnswer}/>)
+            }
             </div>
         );
     }
 }
 
 function mapStateToProps(state) {
-    console.log('state', state);
     return {
         game: state.game,
         users: state.game.users,

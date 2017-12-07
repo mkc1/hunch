@@ -21,15 +21,6 @@ module.exports = [
     topic: "the last book you read"
   },
   {
-    topic: "a book you couldn't tolerate enough to finish"
-  },
-  {
-    topic: "a past experience you thought you would hate but ended up loving"
-  },
-  {
-    topic: "something that makes you roll your eyes"
-  },
-  {
     topic: "something you wish was taught in all schools, but isn't"
   },
   {
@@ -45,7 +36,7 @@ module.exports = [
     topic: "something no one else in the game knows about you"
   },
   {
-    topic: "a social norm you think is total BS"
+    topic: "a social norm you think is strange"
   },
   {
     topic: "your fantasy career (that isn't your current one)"

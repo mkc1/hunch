@@ -19,8 +19,6 @@ class Form extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        console.log('e', e.target);
-
         document.getElementById('submit-btn').disabled = true;
         this.props.liftData(this.state.input);
         return;
@@ -28,11 +26,13 @@ class Form extends React.Component {
 
     render() {
         return(
-                <div>
+                <div className='form-container'>
                     <form onSubmit={this.handleSubmit}>
-                        <label className='name-label'>{this.props.formLabel}</label>
-                            <input className='name-input' type='text' name='name' onChange={this.handleInput} />
-                        <button className='submit-btn' id='submit-btn' type='submit'>Submit</button>
+                    {(this.props.formLabel) && 
+                        <label className='label'>{this.props.formLabel}</label>
+                    }
+                        <input className='input' type='text' onChange={this.handleInput} />
+                        <button className='submit-btn' id='submit-btn' type='submit'>submit</button>
                     </form>
                 </div>
         );

@@ -11,8 +11,6 @@ class Selections extends React.Component {
         super(props);
 
         this.state = {
-            users: [{name: 'user gggone'}, {name: 'second user'}, {name: 'number three user'}, {name: 'a fourth user'}],
-            answers: [{text: 'fakefffffffsjdfkslksdfkjskjlfsdk answer'}, {text: 'pseudo answer'}, {text: 'not a real answer'}, {text: 'answer?!?!!?'}],
             selections: []
         };
 
@@ -64,7 +62,7 @@ class Selections extends React.Component {
 
     showUsers() {
         let self = this;
-        return this.state.users.map(function(user){
+        return this.props.users.map(function(user){
             return (
                 <div
                     key={user.name}
@@ -80,8 +78,8 @@ class Selections extends React.Component {
     showAnswers() {
         let self = this;
         let user_display;
-        return this.state.answers.map(function(answer){
-            console.log('answer?', answer.text);
+        return this.props.answers.map(function(answer){
+            console.log('answer?', answer);
             let selection = self.state.selections.find((element)=>element[answer.answer]) || null;
             // if it's been matched, show the suspected user below the answer
             if (selection) user_display = selection[answer.answer];
@@ -91,14 +89,14 @@ class Selections extends React.Component {
                     <div className='answer-display'
                         onDragOver={self.preventDefault}
                         onDrop={e => self.drop(e, answer)}
-                        key={answer.text}
+                        key={answer.answer}
                         >
-                        {answer.text}
+                        {answer.answer}
                     </div>
                     <div className='user-display'>
                         {user_display}
                         {user_display.length>0 &&
-                            <button onClick={e => self.removeSelection.apply(null, [selection, e])}>x</button>
+                            <button className='delete-btn' onClick={e => self.removeSelection.apply(null, [selection, e])}>x</button>
                         }
                     </div>
                 </div>
@@ -109,15 +107,15 @@ class Selections extends React.Component {
     addSelection(user, answer) {
         let selection = {};
         let newSelections;
-        let existingSelection = this.state.selections.find((selection)=>selection[answer.text]);
+        let existingSelection = this.state.selections.find((selection)=>selection[answer.answer]);
 
         if (!existingSelection) {
             console.log('it doesnt exist');
-            selection[String(answer.text)] = user.name;
+            selection[String(answer.answer)] = user.name;
             newSelections = this.state.selections.concat([selection]);
         } else {
             console.log('it exists');
-            let updatedSelection = update(existingSelection, {[answer.text]: {$set: user.name}});
+            let updatedSelection = update(existingSelection, {[answer.answer]: {$set: user.name}});
 
             newSelections = update(this.state.selections, {
                 $splice: [[this.state.selections.indexOf(existingSelection), 1, updatedSelection]]
@@ -125,7 +123,7 @@ class Selections extends React.Component {
 
         }
         this.setState({selections: newSelections}, function(){
-            console.log('updated!!!!', this.state.selections)
+            console.log('updated', this.state.selections)
         });
     }
 
@@ -159,10 +157,8 @@ class Selections extends React.Component {
             });
         })
         console.log('submitted selections', selections);
-
         e.target.disabled = true;
-
-        this.props.addSelections(selections, this.props.user, this.props.game._id)
+        this.props.addSelections(selections, this.props.username, this.props.game._id)
     }
 
     render() {
@@ -184,10 +180,10 @@ class Selections extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        // game: state.game,
-        // answers: state.game.answers,
-        // users: state.game.users,
-        // user: state.user
+        game: state.game,
+        answers: state.game.answers,
+        users: state.game.users,
+        username: state.username
     }
 };
 

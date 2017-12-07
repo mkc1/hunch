@@ -69,6 +69,8 @@ module.exports = (server) => {
 
             } else if (action.type === 'server/add-selections') {
 
+                console.log('adding selections', action.data)
+
                 Game.findById(action.data.gameId)
                 .populate('users')
                 .populate('answers')
@@ -78,12 +80,18 @@ module.exports = (server) => {
                     game.answers.forEach(answer =>{
                         if (action.data.selections[answer._id]) {
 
+                            console.log(action.data.selections[answer._id])
+                            console.log(action.data.selections[answer._id])
+
                             let suspected_user = game.users.find((user)=>{
-                                user.name==action.data.selections[answer._id]
+                                console.log(user.name, action.data.selections[answer._id])
+                                return user.name==action.data.selections[answer._id];
                             });
+
+                            console.log('gs', guessing_user, suspected_user)
                             let isCorrect = (suspected_user._id.toString()===answer.user.toString());
                             if (isCorrect) {
-                                guessing_user.points = user_g.points + 1;
+                                guessing_user.points = guessing_user.points + 1;
                                 guessing_user.save();
                             }
                             answer.selections.push({
@@ -98,7 +106,7 @@ module.exports = (server) => {
                 .then(savedGame => {
                     console.log('answers with selections:', savedGame.answers);
                     console.log('users saved', savedGame.users);
-                    io.to(gameCode).emit('action', {type: 'UPDATED-GAME', data: savedGame});
+                    io.to(gameCode).emit('action', {type: 'NEW-GAME', data: savedGame});
                 })
                 .catch(error =>{
                     console.log('error', error);
@@ -115,7 +123,7 @@ module.exports = (server) => {
                 })
                 .then(savedGame => {
                     console.log('updated game:', savedGame.round, savedGame.answers, savedGame.users);
-                    io.to(gameCode).emit('action', {type: 'UPDATED-GAME', data: savedGame});
+                    io.to(gameCode).emit('action', {type: 'NEW-GAME', data: savedGame});
                 })
                 .catch(error =>{
                     console.log('error', error);

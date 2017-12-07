@@ -12,16 +12,16 @@ class Home extends React.Component {
         return(
             <div>
                 {(!this.props.username) ?
-                    <div>
-                    <div>
-                        <span>Enter your name to get started</span>
-                    </div>
-                    <Form className='panel' liftData={
-                        (name)=>this.props.addUsername(name)
-                    } />
+                    <div className='panel'>
+                        <div>
+                            <span>Enter your name to get started</span>
+                        </div>
+                        <Form liftData={
+                            (name)=>this.props.addUsername(name)
+                        } />
                     </div>
                 :
-                    <ChooseGame username={this.props.user} />
+                <ChooseGame username={this.props.user} />
                 }
             </div>
         );

@@ -9,20 +9,18 @@ import { connect } from 'react-redux';
 class EndGame extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-        }
 
         this.showWinningUser = this.showWinningUser.bind(this);
         this.playAgain = this.playAgain.bind(this);
     }
 
     showWinningUser() {
-        let winningUser = null;
-        this.props.users.forEach(user =>{
-            if (!winningUser) winningUser = user;
-            else if (user.points>winningUser.points) winningUser = user;
-        });
-        return (<div>The winner is {winningUser.name} with {winningUser.points}!</div>)
+        // let winningUser = null;
+        // this.props.users.forEach(user =>{
+        //     if (!winningUser) winningUser = user;
+        //     else if (user.points>winningUser.points) winningUser = user;
+        // });
+        return (<div>aest</div>)
     }
 
     playAgain() {
@@ -33,16 +31,15 @@ class EndGame extends React.Component {
         return(
             <div>
                 {this.showWinningUser()}
-                <button onClick={this.playAgain}>Play Again?</button>
+                <button className='submit-btn-main' onClick={this.playAgain}>Play Again?</button>
             </div>
         )
     }
 };
 
 function mapStateToProps(state) {
-    console.log('state also', state);
     return {
-        users: state.game.users
+        // users: state.game.users
     }
 };
 

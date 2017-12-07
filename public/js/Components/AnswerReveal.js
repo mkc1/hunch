@@ -21,6 +21,7 @@ class AnswerReveal extends React.Component {
     }
 
     componentWillReceiveProps(nextProps){
+        console.log('answers cleared for new round, begin new round');
         if (!nextProps.answers.length) this.props.history.push('/game');
     }
 
@@ -47,7 +48,6 @@ class AnswerReveal extends React.Component {
     }
 
     showAnswers(){
-        console.log('show answers');
         let currentAnswer = this.props.game.answers[this.state.currentAnswerIdx];
         let userDisplay = this.props.game.users.find(user=>{
             return user._id===currentAnswer.user;
@@ -56,7 +56,6 @@ class AnswerReveal extends React.Component {
                 <div>
                     <div>" {currentAnswer.answer} "</div>
                     <div>{userDisplay}</div>
-                    <button onClick={this.nextAnswer}>next</button>
                 </div>
             )
     }
@@ -76,24 +75,21 @@ class AnswerReveal extends React.Component {
         })
 
         this.setState({currentPoints: updatedPoints}, ()=>{
-            console.log('it updated', this.state.currentPoints);
             let nextAnswer = this.state.currentAnswerIdx + 1;
             if (nextAnswer>this.props.game.answers.length-1) {
-                console.log('now we shoudl be calling next')
                 this.nextTopic();
                 return;
             }
             this.setState({currentAnswer: nextAnswer}, ()=>{
-                console.log('currentAnsw', nextAnswer, this.state.currentAnswerIdx)
+                console.log('currentAnswer', nextAnswer, this.state.currentAnswerIdx)
             });
         })
     }
 
     nextTopic() {
-        console.log('next topic');
         if (this.props.game.round===this.props.game.topics.length) {
             console.log('end of game', this.state.currentPoints);
-            this.props.endGame(this.props.game._id);
+            this.props.nextTopic(this.props.game._id);
             this.props.history.push('/end-game');
         } else {
             this.props.nextTopic(this.props.game._id);
@@ -106,8 +102,11 @@ class AnswerReveal extends React.Component {
                 <div>
                     {this.showAnswers()}
                 </div>
+                <div className='selection-reveal-container'>
+                    {this.showSelections()}
+                </div>
                 <div>
-                    selections: {this.showSelections()}
+                    <button onClick={this.nextAnswer}>next</button>
                 </div>
             </div>
         );
