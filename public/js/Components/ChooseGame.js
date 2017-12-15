@@ -16,16 +16,15 @@ class ChooseGame extends React.Component {
     }
 
     generateGameCode() {
-        const alphabet = '0123456789abcdefghijklmnopqrstuvwxyz';
+        const chars = '0123456789abcdefghijklmnopqrstuvwxyz';
         let code = '';
         for (var i = 0; i < 6; i++) {
-            code += alphabet.charAt(Math.floor(Math.random()*alphabet.length-1));
+            code += chars.charAt(Math.floor(Math.random()*chars.length-1));
         };
         return code;
     }
 
     handleNewGame() {
-        let self = this;
         const newCode = this.generateGameCode();
         this.props.addGameCode(newCode);
         this.props.history.push('/start-game', {first: true});

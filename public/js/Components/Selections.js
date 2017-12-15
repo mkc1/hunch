@@ -27,19 +27,16 @@ class Selections extends React.Component {
         let receivedSelections = true;
         nextProps.answers.forEach(answer=> {
             if (answer.selections.length!==nextProps.users.length) {
-                console.log('checking to see if everyone submitted', answer.selections.length, nextProps.users.length);
                 receivedSelections = false;
             }
         });
         if (receivedSelections===true) {
-            console.log('everyone submitted, going to results');
             this.props.history.push('/results');
         }
     }
 
     //drag stuff
     dragStart(e, user) {
-        console.log('dragging', e, user);
         e.dataTransfer.setData('user', JSON.stringify(user)); 
     }
 
@@ -79,16 +76,15 @@ class Selections extends React.Component {
         let self = this;
         let user_display;
         return this.props.answers.map(function(answer){
-            console.log('answer?', answer);
             let selection = self.state.selections.find((element)=>element[answer.answer]) || null;
             // if it's been matched, show the suspected user below the answer
             if (selection) user_display = selection[answer.answer];
             else user_display = "";
             return (
-                <div className='answer-box'>
+                <div className='answer-box'
+                    onDragOver={self.preventDefault}
+                    onDrop={e => self.drop(e, answer)}>
                     <div className='answer-display'
-                        onDragOver={self.preventDefault}
-                        onDrop={e => self.drop(e, answer)}
                         key={answer.answer}
                         >
                         {answer.answer}

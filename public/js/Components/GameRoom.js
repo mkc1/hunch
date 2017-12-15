@@ -15,12 +15,12 @@ class GameRoom extends React.Component {
     }
 
     componentDidMount() {
-        this.props.connectSocket({ code: this.props.gameCode, name: this.props.username });
+        this.props.connectSocket({code: this.props.gameCode, name: this.props.username});
     }
 
     startGame() {
         const users = this.props.currentPlayers.map(user=>{
-            return { name: user };
+            return {name: user};
         });
         this.props.addGame(users);
     }

@@ -17,27 +17,51 @@ class SubmitAnswer extends React.Component {
 
         this.showTopic = this.showTopic.bind(this);
         this.submitAnswer = this.submitAnswer.bind(this);
+        this.findUnansweredUsers = this.findUnansweredUsers.bind(this);
         this.showUnansweredUsers = this.showUnansweredUsers.bind(this);
     }
 
     componentWillMount() {
-        let unansweredUsers = this.props.users.map(user =>{
-            return {id: user._id, name: user.name};
-        });
+        this.findUnansweredUsers(this.props);
+        // let submitted = false;
+        // console.log('props!!!', this.props)
 
-        this.setState({unansweredUsers: [].concat(unansweredUsers)});
+        // this.props.game.answer.forEach(user =>{
+        //     if (answer.user===this.props.username) {
+        //         submitted = true;
+        //     }
+        // })
+        // let unansweredUsers = this.props.users.map(user =>{
+        //     return {id: user._id, name: user.name};
+        // });
+
+        // this.setState({unansweredUsers: [].concat(unansweredUsers), submitted: submitted});
     }
 
     componentWillReceiveProps(nextProps) {
+        this.findUnansweredUsers(nextProps);
+    }
+
+    showTopic() {
+        let topic = this.props.game.topics[this.props.game.round-1].topic;
+        return (<div className='topic-title'>{topic}</div>);
+    }
+
+    findUnansweredUsers(props){
         let data = [];
+        let submitted = false;
 
         // find the users that have submitted an answer
-        let answeredUsers = nextProps.answers.map(answer=> {
+        let answeredUsers = props.answers.map(answer=> {
+            // hack for if the user presses the back button and submits again
+            if (answer.user===props.username) {
+                submitted = true;
+            }
             return answer.user;
         });
 
         // find the users that haven't submitted an answer
-        nextProps.users.forEach(user=> {
+        props.users.forEach(user=> {
             if (answeredUsers.indexOf(user._id)===-1) {
                 data.push({id: user._id, name: user.name});
             }
@@ -47,13 +71,7 @@ class SubmitAnswer extends React.Component {
         if (data.length<1) {
             this.props.history.push('/selections');
         }
-
-        this.setState({unansweredUsers: [].concat(data)});
-    }
-
-    showTopic() {
-        let topic = this.props.game.topics[this.props.game.round-1].topic;
-        return (<div className='topic-title'>{topic}</div>);
+        this.setState({unansweredUsers: [].concat(data), submitted: submitted});
     }
 
     showUnansweredUsers() {
