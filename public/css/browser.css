@@ -1,0 +1,464 @@
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 32px;
+    color: #2D343C;
+    margin: 0 auto;
+    margin: 0;
+    position: relative;
+    background: #F7FFF7;
+}
+
+a {
+    display: inline-block;
+    color: rgba(255, 102, 102, 1);
+    text-decoration: none;
+    font-weight: 800px;
+}
+
+a:hover {
+    color: #F38181;
+    text-decoration: none;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+.app-container {
+    width: 100%;
+    height: 100%;
+}
+
+.main-container {
+    width: 100%;
+    text-align: center;
+}
+
+.logo {
+    text-align: left;
+    display: inline-block;
+    font-family: 'Oswald', sans-serif;
+    font-size: 55px;
+    font-weight: bold;
+    margin: 0;
+    color: #226CE0;
+    padding-left: 5%;
+}
+
+.logo-container {
+    background-color: rgba(239, 247, 207, 0.3);
+    border-bottom: 13px rgba(44, 121, 242, 0.8) solid;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    /*background: linear-gradient(90deg, #FEFAEC 20%, transparent);*/
+}
+
+.panel {
+    display: inline-block;
+    margin: 10px 30px;
+    padding: 30px;
+    max-width: 750px;
+    /*padding: 20px 10px;*/
+    /*border: 4px #FFFEFA solid;*/
+    border-radius: 20px;
+    /*max-width: 450px;
+    margin: 0 auto;*/
+    background: rgba(34, 108, 224, 0.1);
+    /*background: rgba(78, 205, 196, 1);*/
+    /*box-shadow: 0 0 0 6pt rgba(0, 159, 220, 0.8);*/
+}
+
+.panel-header {
+    color: #F7FFF7;
+    background: #2D343C;
+    padding: 10px;
+    margin: -30px -30px 30px;
+    border-radius: 20px 20px 0px 0px;
+}
+
+.panel-title {
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+.panel-title-sm {
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.choose-game-panel {
+    vertical-align: top;
+    height: 220px;
+    padding: 40px;
+}
+
+
+.label {
+    font-size: ;
+    display: block;
+    margin-bottom: -10px;
+}
+
+.input {
+    background-color: #FFFEFA;
+    width: 9em;
+    display: block;
+    margin: 20px auto;
+    min-height: 25px;
+    text-align: center;
+    letter-spacing: 2px;
+    font-size: 22px;
+    font-weight: bold;
+    border: 2px solid #2D343C;
+    border-radius: 7px;
+    padding: 7px 15px;
+    color: #226CE0;
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #F38181;
+    box-shadow: 0 0 10px #F38181;
+}
+
+.delete-btn {
+    color: #FF6666;
+    font-size: 20px;
+    border: none;
+    background-color: #4ECDC4;
+    margin-left: 10px;
+}
+
+button, .submit-btn {
+    font-family: 'Oswald', sans-serif;
+    font-size: 25px;
+    padding: 3px 18px 5px 18px;
+    background: #FF6666;
+    color: #292F36;
+    letter-spacing: 1px;
+    border: none;
+}
+
+button, .submit-btn:hover {
+    color: #F7FFF7;
+}
+
+.submit-btn:focus {
+    outline: none;
+}
+
+.submit-btn-main {
+    letter-spacing: 2px;
+    font-size: 25px;
+    padding: 10px 20px;
+    margin: 15px;
+    text-align: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: #FEFAEC;
+    border: none;
+    border-radius: 10px;
+    background-image: linear-gradient(to right, #F38181 0%, #226CE0 51%, #F38181 100%);
+}
+
+.submit-btn-main:hover {
+    background-position: right center;
+}
+
+#answer-panel {
+    min-width: 600px;
+}
+
+#answer-panel>.form-container>form>input {
+    width: 90%;
+}
+
+.user-list {
+    display: inline-block;
+}
+
+.user-list-item {
+    display: inline-block;
+    padding: 0px 10px;
+}
+
+.round-container {
+    margin-top: 15px;
+}
+
+.waiting-on-container {
+    font-size: 25px;
+    margin-bottom: -10px;
+}
+
+.welcome-message {
+    margin-top: 44px;
+    margin-right: 60px;
+    display: inline-block;
+    font-size: 26px;
+}
+
+/*.left-panel {
+    font-size: 25px;
+}*/
+
+.name-list-item {
+    padding: 5px;
+    border-top: 1px #FF6666 solid;
+}
+
+.game-code {
+    font-weight: bold;
+    color: #F38181;
+}
+
+.game-code:hover {
+    cursor: pointer;
+    color: #b95e5e;
+}
+
+.copy-code-text {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 2em;
+    width: 2em;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    background: transparent;
+    color: #A9EEE6;
+}
+
+.flash-container {
+    position: absolute;
+    left: 50%;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.5s, opacity 0.5s linear;
+}
+
+.flash-text {
+    position: relative;
+    left: -50%;
+    background: #625772;
+    color: #FEFAEC;
+    padding: 6px;
+    bottom: 45px;
+    border-radius: 10px;
+}
+
+.selection-container {
+    margin: 0px auto;
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.user-container {
+    width: 35%;
+}
+
+.answer-container {
+    width: 65%;
+}
+
+.user-box {
+    border-radius: 15px;
+    font-size: 28px;
+    background: #809fff;
+    margin: 20px 15%;
+    min-height: 50px;
+    line-height: 50px;
+    padding: 5px;
+    width: 70%;
+}
+
+.answer-box {
+    border-radius: 15px;
+    background: rgba(255, 102, 102, 1);
+    font-size: 24px;
+    margin: 20px;
+    padding: 5px;
+    margin-right: 5%;
+    min-height: 50px;
+}
+
+.matched {
+    background-color: #4ECDC4;
+}
+
+.selection-reveal-container {
+    display: inline-block;
+    margin: 0px auto;
+    padding: 20px;
+}
+
+.answer-display {
+}
+
+.user-display {
+    font-size: 16px;
+}
+
+.user-box[draggable="false"] {
+    background: rgba(128, 160, 255, 0.4);
+}
+
+.topic-title {
+    font-weight: bold;
+    font-size: 34px;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 500px), (max-device-width: 500px) {
+    .app-container {
+      font-size: 60px;
+    }
+
+    .main-container {  
+        text-align: center;
+        width: 100%;
+    }
+
+    .logo {
+        text-align: center;
+        padding-left: 0;
+        font-size: 175px;
+    }
+
+    .logo-container {
+        margin-bottom: 35px;
+        width: 100%;
+        height: 10%;
+        /*background: linear-gradient(90deg, #FEFAEC 20%, transparent);*/
+    }
+
+    .welcome-message {
+        display: none;
+    }
+
+    .label {
+        display: block;
+    }
+
+    .input {
+        margin: 15px auto;
+        height: 70px;
+        font-size: 60px;
+        font-weight: bold;
+        border-radius: 7px;
+        padding: 5px 20px;
+        color: #226CE0;
+    }
+
+    .submit-btn {
+        letter-spacing: 2px;
+        font-size: 60px;
+        font-weight: bold;
+        padding: 20px 40px;
+        margin: 15px;
+        text-align: center;
+        transition: 0.5s;
+        background-size: 200% auto;
+        color: #FEFAEC;
+        border: none;
+        border-radius: 10px;
+        background-image: linear-gradient(to right, #F38181 0%, #226CE0 51%, #F38181 100%);
+    }
+
+    .submit-btn:hover {
+        background-position: right center;
+    }
+
+    .submit-btn:focus {
+        outline: none;
+    }
+
+    .or-div {
+        margin: 20px;
+    }
+
+    .panel-title {
+        margin-bottom: 18px;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .panel-title-sm {
+        font-weight: bold;
+        margin-bottom: 10px;
+        padding: 5px;
+    }
+
+    .name-list-item {
+        padding: 5px;
+        border-top: 1px #d2aeae solid;
+    }
+
+    .game-code:hover {
+        cursor: pointer;
+        color: #b95e5e;
+    }
+
+    .copy-code-text {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        height: 2em;
+        width: 2em;
+        padding: 0;
+        border: none;
+        outline: none;
+        box-shadow: none;
+        background: transparent;
+        color: #A9EEE6;
+    }
+
+    .flash-container {
+        position: absolute;
+        left: 50%;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0.5s, opacity 0.5s linear;
+    }
+
+    .flash-text {
+        position: relative;
+        left: -50%;
+        background: #625772;
+        color: #FEFAEC;
+        padding: 6px;
+        bottom: 45px;
+        border-radius: 10px;
+    }
+
+    .user-box {
+        background: rgba(255, 102, 102, 1);
+        padding: 20px;
+        margin: 20px;
+    }
+
+    .user-box[draggable="false"] {
+        background: rgba(255, 102, 102, 0.6);
+    }
+
+    .topic-title {
+        font-weight: bold;
+        font-size: 34px;
+        font-family: 'Oswald', sans-serif;
+        letter-spacing: 1px;
+    }
+}
