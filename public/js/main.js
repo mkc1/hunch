@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import io from 'socket.io-client';
 import createSocketIoMiddleware from 'redux-socket.io';
 import rootReducer from './reducers';
-import css from './../style.css';
+import css from './../css/style.css';
 import Application from './Application';
 // import GameRoom from './Components/GameRoom';
 // import SubmitAnswer from './Components/SubmitAnswer';

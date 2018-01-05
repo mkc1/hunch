@@ -9,18 +9,28 @@ const Answer = require('./../models/index').Answer;
 module.exports = (server) => {
     var io = socketio(server);
 
+    let gameCode;
+
     io.on('connection', (socket)=>{
 
         console.log('socket io connection success');
 
+        socket.on('test', ()=>{
+            console.log('testing here')
+
+        })
+
         socket.on('action', (action) => {
-        let gameCode;
+
+        console.log('action test', action);
 
             if (action.type === 'server/join-room'){
 
                 gameCode = action.data.code;
                 socket.join(gameCode);
                 socket.name = action.data.name;
+
+                console.log('gameCode', gameCode);
 
                 var clients = io.sockets.adapter.rooms[gameCode].sockets;
                 let name;
@@ -37,12 +47,15 @@ module.exports = (server) => {
 
             } else if (action.type === 'server/add-game') {
 
+                console.log('add game')
+
                 Promise.all([User.create(action.data), Topic.getFiveRandomTopics()])
                 .then(result =>{
                     var newGame = new Game({ users: result[0], topics: result[1] });
                     return newGame.save();
                 })
                 .then(game =>{
+                    console.log('game', game, gameCode);
                     io.to(gameCode).emit('action', {type: 'NEW-GAME', data: game});
                 })
                 .catch(error =>{
