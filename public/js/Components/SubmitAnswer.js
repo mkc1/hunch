@@ -53,10 +53,6 @@ class SubmitAnswer extends React.Component {
 
         // find the users that have submitted an answer
         let answeredUsers = props.answers.map(answer=> {
-            // hack for if the user presses the back button and submits again
-            if (answer.user===props.username) {
-                submitted = true;
-            }
             return answer.user;
         });
 
@@ -71,7 +67,7 @@ class SubmitAnswer extends React.Component {
         if (data.length<1) {
             this.props.history.push('/selections');
         }
-        this.setState({unansweredUsers: [].concat(data), submitted: submitted});
+        this.setState({unansweredUsers: [].concat(data)});
     }
 
     showUnansweredUsers() {

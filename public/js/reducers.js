@@ -4,7 +4,7 @@ let initialState = {currentPlayers: []};
 
 const rootReducer = function(state=initialState, action) {
     let newState;
-    console.log('reducer', action.type);
+    console.log('reducer!', action.type);
     switch (action.type) {
         case 'ADD_USERNAME':
             newState = Object.assign({}, state, {username: action.payload});
@@ -17,12 +17,9 @@ const rootReducer = function(state=initialState, action) {
         case 'JOINED-GAME':
             newState = { currentPlayers: [].concat(action.data) }
             return Object.assign({}, state, newState);
-            // newState = Object.assign({}, state, {currentPlayers: action.data});
             return newState;
         case 'NEW-GAME':
-        console.log('reducer game');
             newState = Object.assign({}, state, {game: action.data});
-            // newState = Object.assign({}, state, {currentPlayers: action.data});
             return newState;
         default:
             return state;

@@ -18,7 +18,7 @@
     "start-watch": "nodemon app.js",
     "dev": "NODE_ENV=dev npm run build-watch & npm run start-watch",
     "start": "node app.js",
-    "test": "NODE_ENV=test jest",
+    "test": "NODE_ENV=test mocha __tests__",
     "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress"
   },
   "repository": {
@@ -61,9 +61,11 @@
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.7",
     "jest": "^21.1.0",
+    "mocha": "^4.1.0",
     "nodemon": "^1.11.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
+    "should": "^13.2.0",
     "style-loader": "^0.18.2",
     "supertest": "^3.0.0",
     "webpack": "^3.5.6"

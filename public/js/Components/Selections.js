@@ -11,7 +11,8 @@ class Selections extends React.Component {
         super(props);
 
         this.state = {
-            selections: []
+            selections: [],
+            submitted: false
         };
 
         this.showUsers = this.showUsers.bind(this);
@@ -48,7 +49,7 @@ class Selections extends React.Component {
     drop(e, answer) {
         e.preventDefault();
         //this turns the box green
-        e.target.parentElement.classList.add('matched');
+        // e.target.parentElement.classList.add('matched');
 
         let user = JSON.parse(e.dataTransfer.getData('user'));
         this.addSelection(user, answer);
@@ -154,7 +155,8 @@ class Selections extends React.Component {
         })
         console.log('submitted selections', selections);
         e.target.disabled = true;
-        this.props.addSelections(selections, this.props.username, this.props.game._id)
+        this.props.addSelections(selections, this.props.username, this.props.game._id);
+        this.setState({submitted: true});
     }
 
     render() {
@@ -168,7 +170,11 @@ class Selections extends React.Component {
                             {this.showAnswers()}
                         </div>
                     </div>
-                    <button className='submit-btn' onClick={this.submitSelections}>Submit</button>
+                    {(!this.state.submitted) ?
+                        (<button className='submit-btn' onClick={this.submitSelections}>Submit</button>)
+                         :
+                         (<p>Thanks for submitting! Waiting on other players...</p>)
+                    }
                 </div>
         );
     }
